@@ -2,12 +2,12 @@ class StaticPagesController < ApplicationController
   def home
   end
 
-  def help
+  def itiran
   end
 
-  def about
+  def shousai
   end
 
-  def contact
+  def toukou
   end
 end
