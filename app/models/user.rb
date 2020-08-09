@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  attr_accessor :remember_token #仮想の属性を定義することでしたで使えるようにすす
+  attr_accessor :remember_token #仮想の属性を定義することでしたで使えるようにする
   before_save {email.downcase!} #データベースに保存する前にアドレスを小文字にする
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -7,7 +7,7 @@ class User < ApplicationRecord
                     format: {with: VALID_EMAIL_REGEX},
                     uniqueness: {case_sensitive: false}
   has_secure_password
-  validates :password, presence: true, length: {minimum:6}
+  validates :password, presence: true, length: {minimum:6}, allow_nil: true
 
   #渡された文字列のハッシュ値を返す
   def self.digest(string)
