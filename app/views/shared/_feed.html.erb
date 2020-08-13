@@ -1,0 +1,4 @@
+<ol class="microposts">
+  <%= render @feed_items %> <%# app/views/microposts/_micropost.html.erb を参照%>
+</ol>
+<%= will_paginate @feed_items %>

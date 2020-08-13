@@ -1,0 +1,23 @@
+<li id="micropost-<%= micropost.id %>">
+  <div class="category">
+    <%= micropost.subject %>/&emsp;<%= micropost.major %>/&emsp;<%= micropost.faculty %>
+  </div>
+  <div class="who">
+    <%= link_to gravatar_for(micropost.user, size: 25), micropost.user %>
+    <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  </div>
+  <div class="content">
+    <div class="q-text"><%= micropost.content %></div>
+    <div class="q-pic"><%= image_tag micropost.picture.url if micropost.picture? %></div>
+  </div>
+  <div class="timestamp">
+    <div><%# micropost.reply_num %>&emsp;</div>
+    <div>Posted <%= time_ago_in_words(micropost.created_at) %> ago.&emsp;</div>
+    <% if current_user?(micropost.user) %>
+      <div>
+        <%= link_to "削除", micropost, method: :delete,
+                                        data: { confirm: "削除しますか？" } %>
+      </div>
+    <% end %>
+  </span>
+</li>

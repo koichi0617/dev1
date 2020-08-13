@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   root 'static_pages#home'
-  get '/itiran', to: 'static_pages#itiran'
-  get '/shousai', to: 'static_pages#shousai'
-  get '/toukou', to: 'static_pages#toukou'
+  get '/index', to: 'static_pages#index'
+  get '/detail', to: 'static_pages#detail'
+  get '/post', to: 'static_pages#post'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
   get '/login', to: 'sessions#new'
@@ -10,5 +14,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :users
+  resources :account_activations, only: :edit
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :microposts,          only: [:create, :destroy]
 
 end

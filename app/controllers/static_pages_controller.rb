@@ -2,12 +2,18 @@ class StaticPagesController < ApplicationController
   def home
   end
 
-  def itiran
+  def index
+    @feed_items = Micropost.includes(:user).order("created_at DESC").page(params[:page])
+    @shibori = Micropost.where()
   end
 
-  def shousai
+  def detail
   end
 
-  def toukou
+  def post
+    if logged_in?
+      @micropost  = current_user.microposts.build
+      @feed_items = current_user.feed.paginate(page: params[:page])
+    end
   end
 end
