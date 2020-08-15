@@ -10,15 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200812131612) do
+ActiveRecord::Schema.define(version: 20200815124857) do
+
+  create_table "majors", force: :cascade do |t|
+    t.string "name"
+  end
 
   create_table "microposts", force: :cascade do |t|
     t.text "content"
-    t.text "faculty"
-    t.text "major"
-    t.text "subject"
+    t.string "faculty"
+    t.string "major"
+    t.string "subject"
     t.boolean "solve"
-    t.text "title"
+    t.string "title"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,7 +46,9 @@ ActiveRecord::Schema.define(version: 20200812131612) do
     t.datetime "reset_sent_at"
     t.string "faculty"
     t.string "major"
+    t.integer "major_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["major_id"], name: "index_users_on_major_id"
   end
 
 end

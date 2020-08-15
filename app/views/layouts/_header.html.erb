@@ -8,7 +8,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">質問一覧 <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li class="dropdown"><%= link_to '全部', index_path %></li>
+            <li class="dropdown"><%= link_to '全部', microposts_path %></li>
             <li class="divider"></li>
             <p class="sibori">絞り込み</p>
             <li class="dropdown">
@@ -51,7 +51,7 @@
         <% else %>
           <li><%= link_to 'ログイン', login_path %></li>
         <% end %>
-        <li class="post"><%= link_to "質問する", post_path %></li>
+        <li class="post"><%= link_to "質問する", new_micropost_path %></li>
       </ul>
     </nav>
   </div>

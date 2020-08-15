@@ -2,14 +2,32 @@ class MicropostsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
-  def create
-    @micropost = current_user.microposts.build(micropost_params)
-    if @micropost.save
-      flash[:success] = "投稿されました"
-      redirect_to root_url
+  def index
+    @micropost = current_user.microposts.build if logged_in?
+    @feed_items = Micropost.includes(:user).order("created_at DESC").page(params[:page])
+  end
+
+  def new
+    if logged_in?
+      @micropost  = current_user.microposts.build
+      @feed_items = current_user.feed.paginate(page: params[:page])
     else
-      @feed_items = []
-      render 'static_pages/index'
+      render template: 'sessions/new'
+    end
+  end
+
+  def create
+    if logged_in?
+      @micropost = current_user.microposts.build(micropost_params)
+      if @micropost.save
+        flash[:success] = "投稿されました"
+        redirect_to microposts_url
+      else
+        @feed_items = []
+        render 'microposts/index'
+      end
+    else
+      render template: 'sessions/new'
     end
   end
 

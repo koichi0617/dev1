@@ -1,5 +1,9 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  
+  <div class="subject">
+    <%= f.text_area :subject, placeholder: "科目名・ジャンル" %>
+  </div>
   <div class="field">
     <%= f.text_area :content, placeholder: "質問内容" %>
   </div>
