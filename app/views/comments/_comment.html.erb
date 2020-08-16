@@ -1,0 +1,11 @@
+<div class="p-comment__item">
+  <span>
+    <%= @micropost.user.name %>&emsp;/&emsp;<%= @micropost.user.major.name %>&emsp;
+  </span>
+  <p><%= simple_format(comment.content) %></p>
+  <p><%= image_tag comment.picture if comment.picture? %></p>
+  <div class="p-comment__bottomLine">
+    <span><%= comment.created_at.to_s(:datetime_base) %></span>
+    <span><%= link_to '削除', comment, method: :delete, data: { confirm: '削除してもよろしいでしょうか？' } %></span>
+  </div>
+</div>

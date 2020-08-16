@@ -4,7 +4,7 @@
   </div>
   <div class="who">
     <%= link_to gravatar_for(micropost.user, size: 25), micropost.user %>
-    <span class="user"><%= link_to micropost.user.name, micropost.user %>&emsp;/&emsp;<%= micropost.major %></span>
+    <span class="user"><%= link_to micropost.user.name, micropost.user %>&emsp;/&emsp;<%= micropost.user.major.name %></span>
   </div>
   <div class="content">
     <div class="q-text"><%= micropost.content %></div>

@@ -5,11 +5,7 @@
   <%= f.text_field :name, class: 'form-control' %>
 
   <%= f.label :major_id, "学部・学科" %>
-  <%= f.select :major_id, {'文・文': 1, '文・総人': 2, '文・コミ情': 3, '文・歴史': 4, '教・小': 5,
-  '教・中': 6, '教・特別': 7, '教・養教': 8, '教・社会': 9, '法・法': 10, '理・理': 11, '工・建築': 12,
-  '工・社環': 13, '工・情電': 14, '工・機シス': 15, '工・数理': 16, '工・物生': 17, '工・マテ': 18,
-  '医・医': 19, '医・保健': 20, '薬・薬': 21, '薬・創薬': 22}, {include_blank: "学部・学科"}, 
-  { class: 'form-control' , required: true } %>
+  <%= f.collection_select :major_id, Major.all, :id, :name, {prompt: '選択してください'} %>
 
   <%= f.label :email, "メールアドレス" %>
   <%= f.text_field :email, class: 'form-control' %>

@@ -5,6 +5,7 @@ class MicropostsController < ApplicationController
   def index
     @micropost = current_user.microposts.build if logged_in?
     @feed_items = Micropost.includes(:user).order("created_at DESC").page(params[:page])
+    #@feed_items = params[:major_id].present? ? Micropost.find_by(major_id: params[:major_id]) : Micropost.all
   end
 
   def new
@@ -39,6 +40,7 @@ class MicropostsController < ApplicationController
 
   def show
     @micropost = Micropost.find(params[:id])
+    @comment = Comment.new(micropost_id: @micropost.id)
   end
 
   private
