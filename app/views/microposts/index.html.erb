@@ -1,0 +1,20 @@
+<% provide(:title, "質問一覧") %>
+
+<div class="row">
+  <div class="index-top">
+    <h3>質問一覧</h3>
+    <div class="narrow-down-major">
+      <%= form_tag(microposts_path, method: :get, class: 'posts__searchForm') do %>
+        <%= select_tag :major_id, #コントローラーに渡す値
+                        options_from_collection_for_select(Major.all, :id, :name, params[:major_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
+                        {
+                          prompt: '全学科',
+                          class: 'form-control posts__select',
+                          onchange: 'submit(this.form);'
+                          }
+        %>
+      <% end %>
+    </div>
+  </div>
+  <%= render 'shared/feed' %>
+</div>

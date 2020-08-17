@@ -1,0 +1,13 @@
+<div class="p-comment__formBox">
+  <%= form_for @comment do |f| %>
+    <%= f.hidden_field :micropost_id %>
+    <div class="form-group">
+      <%= f.label :content, 'コメント' %>
+      <%= f.text_area :content, class: 'form-control', rows: 4 %>
+    </div>
+    <div class="picture-comment">
+      <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+    </div>
+    <%= f.submit '送信', class: 'btn btn-info btn-block' %>
+  <% end %>
+</div>

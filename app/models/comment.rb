@@ -1,10 +1,7 @@
-class Micropost < ApplicationRecord
-  belongs_to :user
-  belongs_to :major, optional: true
-  has_many :comment, dependent: :destroy
-  default_scope -> { order(created_at: :desc) } #作成日時から降順に並べる
+class Comment < ApplicationRecord
+  belongs_to :micropost
+
   mount_uploader :picture, PictureUploader
-  validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 500 }
   validate  :picture_size
 
