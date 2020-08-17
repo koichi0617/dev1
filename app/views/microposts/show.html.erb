@@ -1,9 +1,18 @@
 <% provide(:title, "About") %>
 
 <h1>詳細</h1>
-<div>
-  <%= @micropost.user.name %>&emsp;/&emsp;<%= @micropost.user.major.name %>&emsp;/&emsp;
-  <%= @micropost.subject %>
+
+<div class="question">
+  <div>
+    <% if @micropost.solve == true %>
+      解決済み
+    <% else %>
+      未解決
+    <% end %>
+  </div>
+  <div clas="">
+    <%= @micropost.user.name %>&emsp;/&emsp;<%= @micropost.user.major.name %>&emsp;/&emsp;
+    <%= @micropost.subject %>
   <div>
     <%= @micropost.content %>
   </div>
@@ -15,12 +24,18 @@
   </div>
 </div>
 
-
 <div class="p-comment_list">
   <div class="p-comment_listTitle">コメント</div>
   <%= render @micropost.comment %>
+  </div>
 </div>
 
-
-
-<%= render 'comments/form', locals: { comment: @comment } %>
+<% if current_user == @micropost.user %>
+  <div class='solve_button'>
+    <% if @micropost.solve == false %>
+      <%= button_to '解決！', solve_path(@micropost), method: :post %>
+    <% else %>
+      <%= button_to 'やっぱりわかんない', solve_path(@micropost), method: :post %>
+    <% end %>
+  </div>
+<% end %>

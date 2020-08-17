@@ -1,11 +1,10 @@
 class MicropostsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :logged_in_user, only: [:create, :destroy, :solve]
+  before_action :correct_user,   only: [:destroy, :solve]
 
   def index
-    @micropost = current_user.microposts.build if logged_in?
-    @feed_items = Micropost.includes(:user).order("created_at DESC").page(params[:page])
-    #@feed_items = params[:major_id].present? ? Micropost.find_by(major_id: params[:major_id]) : Micropost.all
+    @feed_items = params[:major_id].present? ? Major.find(params[:major_id]).micropost : Micropost.all
+    @feed_items = @feed_items.page(params[:page])
   end
 
   def new
@@ -43,10 +42,25 @@ class MicropostsController < ApplicationController
     @comment = Comment.new(micropost_id: @micropost.id)
   end
 
+  def solve
+    @micropost = Micropost.find(params[:id])
+    if @micropost.solve == true
+      @micropost.update(solve: "false")
+    else
+      @micropost.update(solve: "true")
+    end
+    @micropost.save
+    redirect_to @micropost
+  end
+  
   private
 
     def micropost_params
       params.require(:micropost).permit(:content, :picture)
+    end
+
+    def solve_params
+      params.require(:micropost).permit(:solve)
     end
 
     def correct_user
