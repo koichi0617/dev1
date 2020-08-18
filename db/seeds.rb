@@ -21,9 +21,9 @@ User.create!(name:  "Example User",
 end
 
 users = User.order(:created_at).take(6)
-50.times do
+10.times do
   content = Faker::Lorem.sentence(5)
-  users.each { |user| user.microposts.create!(content: content, major_id: 3) }
+  users.each { |user| user.microposts.create!(content: content, major_id: 2, subject: content) }
 end
 
 Major.create(:name => '文・文')
@@ -48,3 +48,6 @@ Major.create(:name => '医・医')
 Major.create(:name => '医・保健')
 Major.create(:name => '薬・薬')
 Major.create(:name => '薬・創薬')
+
+Resolve.create!(:name => '解決済み', :solve => true)
+Resolve.create!(:name => '未解決', :solve => false)

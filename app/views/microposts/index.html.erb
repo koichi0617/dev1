@@ -15,6 +15,18 @@
         %>
       <% end %>
     </div>
+    <div class="narrow-down-solve">
+      <%= form_tag(microposts_path, method: :get, class: 'posts__searchForm') do %>
+        <%= select_tag :resolve_id, #コントローラーに渡す値
+                        options_from_collection_for_select(Resolve.all, :id, :name, params[:resolve_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
+                        {
+                          prompt: '解決済み ＆ 未解決',
+                          class: 'form-control posts__select',
+                          onchange: 'submit(this.form);'
+                          }
+        %>
+      <% end %>
+    </div>
   </div>
   <%= render 'shared/feed' %>
 </div>

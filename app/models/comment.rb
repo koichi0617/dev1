@@ -1,5 +1,6 @@
 class Comment < ApplicationRecord
   belongs_to :micropost
+  belongs_to :user
 
   mount_uploader :picture, PictureUploader
   validates :content, presence: true, length: { maximum: 500 }

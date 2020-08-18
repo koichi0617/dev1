@@ -26,16 +26,16 @@
 
 <div class="p-comment_list">
   <div class="p-comment_listTitle">コメント</div>
-  <%= render @micropost.comment %>
+  <%= render @micropost.comments %>
   </div>
 </div>
 
 <% if current_user == @micropost.user %>
   <div class='solve_button'>
-    <% if @micropost.solve == false %>
-      <%= button_to '解決！', solve_path(@micropost), method: :post %>
-    <% else %>
+    <% if @micropost.solve == true %>
       <%= button_to 'やっぱりわかんない', solve_path(@micropost), method: :post %>
+    <% else %>
+      <%= button_to '解決！', solve_path(@micropost), method: :post %>
     <% end %>
   </div>
 <% end %>

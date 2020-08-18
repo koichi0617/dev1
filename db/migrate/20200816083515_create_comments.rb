@@ -1,7 +1,7 @@
 class CreateComments < ActiveRecord::Migration[5.1]
   def change
     create_table :comments do |t|
-      t.text :content, null: false #必須
+      t.text :content, null: false #このカラムはバリューが必須になる
       t.string :picture
       t.references :micropost, foreign_key: true
 

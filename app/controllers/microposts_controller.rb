@@ -4,6 +4,7 @@ class MicropostsController < ApplicationController
 
   def index
     @feed_items = params[:major_id].present? ? Major.find(params[:major_id]).micropost : Micropost.all
+    @feed_items = params[:resolve_id].present? ? Resolve.find(params[:resolve_id]).microposts : @feed_items
     @feed_items = @feed_items.page(params[:page])
   end
 
@@ -45,11 +46,10 @@ class MicropostsController < ApplicationController
   def solve
     @micropost = Micropost.find(params[:id])
     if @micropost.solve == true
-      @micropost.update(solve: "false")
+      @micropost.update_attributes(solve: false, resolve_id: 2)
     else
-      @micropost.update(solve: "true")
+      @micropost.update_attributes(solve: true, resolve_id: 1)
     end
-    @micropost.save
     redirect_to @micropost
   end
   
