@@ -1,6 +1,6 @@
 <div class="p-comment__formBox">
-  <%= form_for @comment do |f| %>
-    <%= f.hidden_field :micropost_id %>
+  <%= form_with(model: @comment, local: true) do |f| %>
+    <%= f.hidden_field :micropost_id, :value => @micropost.id %>
     <div class="form-group">
       <%= f.label :content, 'コメント' %>
       <%= f.text_area :content, class: 'form-control', rows: 4 %>

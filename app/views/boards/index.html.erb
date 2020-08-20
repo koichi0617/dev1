@@ -1,0 +1,14 @@
+<% provide(:title, "掲示板") %>
+
+<h3>掲示板</h3>
+
+<div class="board-top">
+  <div class="board-button">
+    <%= button_to '投稿する', new_board_path, method: :get %>
+    
+  </div>
+</div>
+
+<div class="row">
+  <%= render 'shared/feed' %>
+</div>

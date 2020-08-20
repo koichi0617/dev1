@@ -5,6 +5,7 @@ class MicropostsController < ApplicationController
   def index
     @feed_items = params[:major_id].present? ? Major.find(params[:major_id]).micropost : Micropost.all
     @feed_items = params[:resolve_id].present? ? Resolve.find(params[:resolve_id]).microposts : @feed_items
+    @feed_items = params[:keyword].present? ? @feed_items.where("subject LIKE ?", "%#{params[:keyword]}%") : @feed_items
     @feed_items = @feed_items.page(params[:page])
   end
 
@@ -35,12 +36,14 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     flash[:success] = "削除されました"
-    redirect_to request.referrer || root_url
+    redirect_to request.referrer || microposts_url
   end
 
   def show
     @micropost = Micropost.find(params[:id])
-    @comment = Comment.new(micropost_id: @micropost.id)
+    @comments = @micropost.comments.all
+    @comment  = @micropost.comments.build if current_user
+    @comment.user_id = current_user.id
   end
 
   def solve

@@ -2,6 +2,7 @@ class User < ApplicationRecord
   belongs_to :major, optional: true
   has_many :microposts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :boards, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token #仮想の属性を定義することでしたで使えるようにする
   before_save :downcase_email #データベースに保存する前にアドレスを小文字にする
   before_create :create_activation_digest
@@ -72,8 +73,8 @@ class User < ApplicationRecord
     Micropost.where("user_id = ?", id)
   end
 
-  def feed2
-    Micropost.where("created_at = ?", created_at)
+  def feed_board
+    Board.where("user_id = ?", id)
   end
 
   private

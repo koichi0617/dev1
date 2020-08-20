@@ -1,0 +1,25 @@
+<% provide(:title, "投稿") %>
+
+<h1>詳細</h1>
+<div>
+  <div clas="">
+    <%= @board.name %>&emsp;/&emsp;<%= @board.user.name %>&emsp;
+  </div>
+  <div>
+    <%= @board.content %>
+  </div>
+  <div>
+    <%= image_tag @board.picture.url if @board.picture? %>
+  </div>
+  <div>
+    Posted <%= time_ago_in_words(@board.created_at) %> ago.&emsp;
+  </div>
+</div>
+
+<div class="p-comment_list">
+  <div class="p-comment_listTitle">コメント</div>
+  <%= render @board.comments %>
+  </div>
+</div>
+
+<%= render 'comments/form', locals: { comment: @comment } %>

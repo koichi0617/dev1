@@ -1,0 +1,30 @@
+<li id="board-<%= board.id %>">
+
+  <div class="category">
+    <%= board.name %>
+  </div>
+
+  <div class="who">
+    <%= link_to gravatar_for(board.user, size: 25), board.user %>
+    <span class="user"><%= link_to board.user.name, board.user %>&emsp;/&emsp;<%= board.user.major.name %></span>
+  </div>
+
+  <div class="content">
+    <div class="q-text"><%= board.content %></div>
+    <div class="q-pic"><%= image_tag board.picture.url if board.picture? %></div>
+  </div>
+
+  <div class="timestamp">
+    <div><%# board.reply_num %>&emsp;</div>
+    <div>Posted <%= time_ago_in_words(board.created_at) %> ago.&emsp;</div>
+    <div><%= link_to '詳細', board_path(board.id) %> &emsp;</div>
+    <% if current_user?(board.user) %>
+      <div>
+        <%= link_to "削除", board_path(board.id), method: :delete,
+                                        data: { confirm: "削除しますか？" } %>
+      </div>
+      <div>&emsp;</div>
+    <% end %>
+  </div>
+
+</li>

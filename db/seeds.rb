@@ -7,7 +7,7 @@ User.create!(name:  "Example User",
              activated_at: Time.zone.now,
              major_id: 1)
 
-99.times do |n|
+10.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -21,7 +21,7 @@ User.create!(name:  "Example User",
 end
 
 users = User.order(:created_at).take(6)
-10.times do
+5.times do
   content = Faker::Lorem.sentence(5)
   users.each { |user| user.microposts.create!(content: content, major_id: 2, subject: content) }
 end
@@ -51,3 +51,7 @@ Major.create(:name => '薬・創薬')
 
 Resolve.create!(:name => '解決済み', :solve => true)
 Resolve.create!(:name => '未解決', :solve => false)
+
+Board.create!(:name => 'メンバー募集！', :content => 'みんなおいで！', :user_id => 1)
+Board.create!(:name => 'メンバー募集！', :content => 'みんなこいよ！', :user_id => 2)
+Board.create!(:name => 'メンバー募集！', :content => 'みんなカモン！', :user_id => 3)

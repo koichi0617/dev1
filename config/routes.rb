@@ -8,14 +8,17 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get 'password_resets/new'
   get 'password_resets/edit'
-  post '/microposts/:id', to: 'comments#create'
-  #get '/microposts/:id', to: 'microposts#update'
+  #post '/microposts/:id', to: 'comments#create'
   post '/microposts/:id/solve', to: 'microposts#solve',   as: 'solve'
+  delete '/microposts/:id', to: 'comments#destroy'
 
   resources :users
   resources :account_activations, only: :edit
   resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :microposts, only: [:index, :new, :create, :show, :solve]
+  resources :microposts, only: [:index, :new, :create, :show, :solve, :destroy]
   resources :comments, only: [:create, :destroy]
+  resources :boards, only: [:index, :new, :create, :show, :destroy]
+  #  resources :comments, only: [:create, :destroy]
+  #end
 
 end

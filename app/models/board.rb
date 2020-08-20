@@ -1,9 +1,9 @@
-class Comment < ApplicationRecord
-  belongs_to :micropost
-  belongs_to :user
-  #belongs_to :board
-
+class Board < ApplicationRecord
+  belongs_to :user, optional: true
+  #has_many :comments, dependent: :destroy
+  default_scope -> { order(created_at: :desc) } #作成日時から降順に並べる
   mount_uploader :picture, PictureUploader
+  validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 500 }
   validate  :picture_size
 

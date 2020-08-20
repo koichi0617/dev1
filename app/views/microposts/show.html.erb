@@ -26,7 +26,7 @@
 
 <div class="p-comment_list">
   <div class="p-comment_listTitle">コメント</div>
-  <%= render @micropost.comments %>
+  <%= render @comments %>
   </div>
 </div>
 
@@ -40,4 +40,6 @@
   </div>
 <% end %>
 
-<%= render 'comments/form', locals: { comment: @comment } %>
+<% if logged_in? %>
+  <%= render 'comments/form', locals: { comment: @comment } %>
+<% end %>
