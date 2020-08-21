@@ -4,8 +4,15 @@
     <section class="user_info">
       <h1>
         <%= gravatar_for @user %>
-        <%= @user.name %>
+        <p><%= @user.name %></p>
+        <p><%= @user.major.name %></p>
       </h1>
+      <p><i class="far fa-envelope fa-lg">&nbsp;メッセージ</i></p>
+      <p><i class="fab fa-twitter" style="color:#1da1f2;"></i></p>
+      <p><i class="fab fa-instagram" style="color:#e1306c;"></i></p>
+      <p><i class="fab fa-line" style="color:#00c300;"></i></p>
+      <p><i class="fab fa-facebook-square" style="color:#3b5998;"></i></p>
+      <p><i class="fab fa-youtube" style="color:#ff0000;"></i></p>
     </section>
   </aside>
   <div class="col-md-9">
