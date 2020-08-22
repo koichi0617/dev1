@@ -1,0 +1,20 @@
+<% provide(:title, "会話一覧") %>
+
+<div>
+  <h3>会話一覧</h3>
+  <%# render 'shared/talk' %>
+</div>
+<div class="row">
+  <div class="col-xs-3">
+  </div>
+
+  <div class="col-xs-6 index-rooms">
+    <%= @another_entries.each do |entry| %>
+      <div class="index-room">
+        <%= link_to gravatar_for(entry.user, size: 25), user_path(entry.user) %>
+        <%= link_to entry.user.name, user_path(entry.user) %>
+        <%= link_to "詳細", room_path(entry.room), class: "room-detail" %>
+      </div>
+    <% end %>
+  </div>
+</div>

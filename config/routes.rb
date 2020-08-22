@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   resources :microposts, only: [:index, :new, :create, :show, :solve, :destroy]
   resources :comments, only: [:create, :destroy]
   resources :boards, only: [:index, :new, :create, :show, :destroy]
-  #  resources :comments, only: [:create, :destroy]
-  #end
+  resources :rooms, only: [:index, :create, :show]
+  resources :messages, only: [:create, :edit, :update, :destroy]
+  
 
 end

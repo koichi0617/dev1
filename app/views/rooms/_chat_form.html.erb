@@ -1,0 +1,10 @@
+<div class="p-comment__formBox">
+  <%= form_with(model: @message, local: true) do |f| %>
+    <%= f.hidden_field :room_id, :value => @room.id %>
+    <div class="form-group">
+      <%= f.label :message, 'コメント' %>
+      <%= f.text_area :message, class: 'form-control', rows: 4 %>
+    </div>
+    <%= f.submit '送信', class: 'btn btn-info btn-block' %>
+  <% end %>
+</div>

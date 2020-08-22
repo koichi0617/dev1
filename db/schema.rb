@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200819071617) do
+ActiveRecord::Schema.define(version: 20200821105015) do
+
+  create_table "b_comments", force: :cascade do |t|
+    t.text "content", null: false
+    t.string "picture"
+    t.integer "board_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_b_comments_on_board_id"
+    t.index ["user_id"], name: "index_b_comments_on_user_id"
+  end
 
   create_table "boards", force: :cascade do |t|
     t.string "name", null: false
@@ -29,14 +40,31 @@ ActiveRecord::Schema.define(version: 20200819071617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.integer "board_id"
-    t.index ["board_id"], name: "index_comments_on_board_id"
     t.index ["micropost_id"], name: "index_comments_on_micropost_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_entries_on_room_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
+
   create_table "majors", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "microposts", force: :cascade do |t|
@@ -61,6 +89,11 @@ ActiveRecord::Schema.define(version: 20200819071617) do
   create_table "resolves", force: :cascade do |t|
     t.string "name"
     t.boolean "solve"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

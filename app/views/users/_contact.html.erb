@@ -1,0 +1,16 @@
+<% if logged_in? %>
+  <% if @user.id == current_user.id %>
+    <%= link_to '会話一覧', rooms_path %>
+  <% else %>
+    <% if @haveRoom == true %>
+      <%= link_to '会話にもどる', room_path(@roomId) %>
+    <% else %>
+      <%= form_with(model: @room, local: true) do |f| %>
+        <%= fields_for @entry do |e| %>
+          <%= e.hidden_field :user_id, :value => @user.id %>
+        <%= f.submit 'メッセージを送る' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
