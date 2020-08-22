@@ -1,7 +1,7 @@
 <li id="room-<%= room.id %>">
 
   <div class="who">
-    <%# link_to gravatar_for(room.user, size: 25), room.user %>
+    <%= link_to gravatar_for(entry.user, size: 25), user_path(entry.user) %>
     <span class="user"><%= link_to room.entries.user.name, room.entries.user %>&emsp;/&emsp;<%= room.entries.user.major.name %></span>
     <span><%= link_to '詳細', room %></span>
     <span><%= message.created_at.strftime("%Y-%m-%d %H:%M") %></span>

@@ -4,35 +4,43 @@
   <div class="index-top">
     <h3>質問一覧</h3>
 
-    <div class="narrow-down-major">
+    <div class="narrow-down">
       <%= form_tag(microposts_path, method: :get, class: 'posts__searchForm') do %>
-        <%= label :major_id, "学科" %>
-        <%= select_tag :major_id, #コントローラーに渡す値
-                        options_from_collection_for_select(Major.all, :id, :name, params[:major_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
-                        { prompt: '全部',
-                          class: 'form-control posts__select',
-                          onchange: 'submit(this.form);' }
-        %>
+        <div class="narrow-down-major">
+          <%= label :major_id, "学科" %>
+          <%= select_tag :major_id, #コントローラーに渡す値
+                          options_from_collection_for_select(Major.all, :id, :name, params[:major_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
+                          { prompt: '全部',
+                            class: 'form-control posts__select' }
+          %>
+        </div>
+
+        <div class="narrow-down-solve">
+          <%= label :major_id, "解決" %>
+          <%= select_tag :resolve_id, #コントローラーに渡す値
+                          options_from_collection_for_select(Resolve.all, :id, :name, params[:resolve_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
+                          { prompt: '全部',
+                            class: 'form-control posts__select' }
+          %>
+        </div>
+
+        <div class="narrow-down-subject">
+          <%= label :keyword, "科目・ジャンル" %>
+          <%= text_field_tag :keyword %>
+          <%= submit_tag '検索', :name => nil %>
+        </div>
       <% end %>
     </div>
 
     <div class="narrow-down-solve">
       <%= form_tag(microposts_path, method: :get, class: 'posts__searchForm') do %>
-        <%= label :major_id, "解決" %>
-        <%= select_tag :resolve_id, #コントローラーに渡す値
-                        options_from_collection_for_select(Resolve.all, :id, :name, params[:resolve_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
-                        { prompt: '全部',
-                          class: 'form-control posts__select',
-                          onchange: 'submit(this.form);' }
-        %>
+        
       <% end %>
     </div>
 
     <div class="narrow-down-keyword">
       <%= form_tag(microposts_path, method: :get, class: 'posts__searchForm') do %>
-        <%= label :keyword, "科目・ジャンル" %>
-        <%= text_field_tag :keyword %>
-        <%= submit_tag '検索', :name => nil %>
+        
       <% end %>
     </div>
   </div>

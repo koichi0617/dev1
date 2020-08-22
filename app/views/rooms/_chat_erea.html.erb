@@ -2,7 +2,7 @@
   <h4 class="rooms-title">会話</h4>
   <% @entries.each do |e| %>
     <div class="user-name">
-      <strong><%# gravatar_for @user %>
+      <strong><%# link_to gravatar_for(@another_entries.user, size: 25), user_path(@another_entries.user) %>
               <%= link_to e.user.name, e.user %>&nbsp;さん
       </strong>
     </div>
@@ -16,7 +16,7 @@
         <div id="message_#{m.id}">
           <div class="chatbo">
             <div class="chat-face1">
-              <%# gravatar_for @user %>
+              <%# link_to gravatar_for(@another_entries.user, size: 25), user_path(@another_entries.user) %>
               <div class="chat-hukidashi"></div>
               <%= m.user.name %>
               <br>

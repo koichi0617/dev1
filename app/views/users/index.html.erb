@@ -1,10 +1,35 @@
-<% provide(:title, 'ユーザー一覧') %>
-<h1>ユーザー一覧</h1>
+<% provide(:title, 'ユーザー') %>
 
-<%= will_paginate %>
+<div class="row">
+  <div class="index-top">
+    <h3>ユーザー</h3>
+
+    <div class="narrow-down">
+      <%= form_tag(users_path, method: :get, class: 'posts__searchForm') do %>
+        <div class="narrow-down-major">
+          <%= label :major_id, "学科" %>
+          <%= select_tag :major_id, #コントローラーに渡す値
+                          options_from_collection_for_select(Major.all, :id, :name, { :selected => params[:major_id] }), #（セレクトする配列、渡す値のカラム、表示する値のカラム、遷移後の初期値）
+                          { prompt: '全部',
+                            class: 'form-control posts__select'}
+          %>
+        </div>
+        
+        <div class="narrow-down-keyword">
+          <%= label :keyword, "名前" %>
+          <%= text_field_tag :keyword %>
+          <%= submit_tag '検索', :name => nil %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= will_paginate @users %>
 
 <ul class="users">
   <%= render @users %>   <%# @usersはUserオブジェクトのリストであると処理される %>
 </ul>
 
-<%= will_paginate %>
+<%= will_paginate @users %>

@@ -3,8 +3,8 @@ class MicropostsController < ApplicationController
   before_action :correct_user,   only: [:destroy, :solve]
 
   def index
-    @feed_items = params[:major_id].present? ? Major.find(params[:major_id]).micropost : Micropost.all
-    @feed_items = params[:resolve_id].present? ? Resolve.find(params[:resolve_id]).microposts : @feed_items
+    @feed_items = params[:major_id].present? ? Micropost.where(major_id: params[:major_id]) : Micropost.all
+    @feed_items = params[:resolve_id].present? ? @feed_items.where(resolve: params[:resolve_id]) : @feed_items
     @feed_items = params[:keyword].present? ? @feed_items.where("subject LIKE ?", "%#{params[:keyword]}%") : @feed_items
     @feed_items = @feed_items.page(params[:page])
   end
