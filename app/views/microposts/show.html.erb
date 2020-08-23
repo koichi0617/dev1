@@ -23,23 +23,31 @@
     Posted <%= time_ago_in_words(@micropost.created_at) %> ago.&emsp;
   </div>
 </div>
-
-<div class="p-comment_list">
-  <div class="p-comment_listTitle">コメント</div>
-  <%= render @comments %>
-  </div>
+<hr>
+<div class="row">
+    <ul>
+        <li class="comment-create">
+            <h3 class="text-left title">コメント&nbsp;<%= @comments.count %>件</h3>
+        </li>
+        <li id="comments_area">
+            <%= render partial: 'comments/index', locals: { comments: @comments } %>
+        </li>
+    </ul>
+    <% if current_user == @micropost.user %>
+      <div class='solve_button'>
+        <% if @micropost.solve == true %>
+          <%= button_to 'やっぱりわかんない', solve_path(@micropost), method: :post %>
+        <% else %>
+          <%= button_to '解決！', solve_path(@micropost), method: :post %>
+        <% end %>
+      </div>
+    <% end %>
+    <hr>
+    <% if logged_in? %>
+        <div class="comment-create">
+            <h3 class="text-left">コメント投稿</h3>
+            <%= render partial: 'comments/form', locals: { comment: @comment, item: @item } %>
+        </div>
+    <% end %>
 </div>
 
-<% if current_user == @micropost.user %>
-  <div class='solve_button'>
-    <% if @micropost.solve == true %>
-      <%= button_to 'やっぱりわかんない', solve_path(@micropost), method: :post %>
-    <% else %>
-      <%= button_to '解決！', solve_path(@micropost), method: :post %>
-    <% end %>
-  </div>
-<% end %>
-
-<% if logged_in? %>
-  <%= render 'comments/form', locals: { comment: @comment } %>
-<% end %>
