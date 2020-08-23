@@ -3,6 +3,8 @@ class Micropost < ApplicationRecord
   belongs_to :major, optional: true
   belongs_to :resolve, optional: true
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  #attachment :image
   default_scope -> { order(created_at: :desc) } #作成日時から降順に並べる
   mount_uploader :picture, PictureUploader
   validates :user_id, presence: true

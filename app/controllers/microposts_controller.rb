@@ -59,7 +59,7 @@ class MicropostsController < ApplicationController
   private
 
     def micropost_params
-      params.require(:micropost).permit(:content, :picture, :major_id, :subject)
+      params.require(:micropost).permit(:content, :picture, :major_id, :subject, :user_id)
     end
 
     def solve_params

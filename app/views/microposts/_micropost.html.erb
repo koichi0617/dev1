@@ -20,14 +20,15 @@
   </div>
 
   <div class="timestamp">
+    <div id="index_like_<%= micropost.id %>">
+      <%= render 'likes/like', micropost: micropost %>
+    </div>
     <div><%= link_to micropost do %><i class="far fa-comment"></i>&nbsp;<%= micropost.comments.count %><% end %>&emsp;</div>
     <div>Posted <%= time_ago_in_words(micropost.created_at) %> ago.&emsp;</div>
     <% if current_user?(micropost.user) %>
       <div>
-        <%= link_to "削除", micropost, method: :delete,
-                                        data: { confirm: "削除しますか？" } %>
+        <%= link_to "削除", micropost_path(micropost.id), method: :delete, data: { confirm: "削除しますか？" } %>
       </div>
-      <div>&emsp;</div>
     <% end %>
   </div>
 

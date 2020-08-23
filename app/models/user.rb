@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :entries
   has_many :rooms, through: :entries
+  has_many :likes, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token #仮想の属性を定義することでしたで使えるようにする
   before_save :downcase_email #データベースに保存する前にアドレスを小文字にする
   before_create :create_activation_digest
@@ -78,6 +79,10 @@ class User < ApplicationRecord
 
   def feed_board
     Board.where("user_id = ?", id)
+  end
+
+  def already_liked?(micropost)
+    self.likes.exists?(micropost_id: micropost.id)
   end
 
   private

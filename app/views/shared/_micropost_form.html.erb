@@ -1,5 +1,7 @@
-<%= form_for(@micropost) do |f| %>
+<%= form_for(@micropost, url: microposts_path, remote: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  
+  <%= f.hidden_field :user_id, :value => current_user.id %>
 
   <%= f.label :major_id, "学部・学科" %>
   <%= f.collection_select :major_id, Major.all, :id, :name, {prompt: '選択してください'} %>
