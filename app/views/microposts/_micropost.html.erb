@@ -20,9 +20,8 @@
   </div>
 
   <div class="timestamp">
-    <div><i class="far fa-comment"></i>&nbsp;<%= micropost.comments.count %>&emsp;</div>
+    <div><%= link_to micropost do %><i class="far fa-comment"></i>&nbsp;<%= micropost.comments.count %><% end %>&emsp;</div>
     <div>Posted <%= time_ago_in_words(micropost.created_at) %> ago.&emsp;</div>
-    <div><%= link_to '詳細', micropost %> &emsp;</div>
     <% if current_user?(micropost.user) %>
       <div>
         <%= link_to "削除", micropost, method: :delete,
