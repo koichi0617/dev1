@@ -3,12 +3,12 @@ class CommentsController < ApplicationController
   before_action :correct_user,   only: [:destroy]
 
   def create
-    @micropost = Micropost.find(params[:comment][:micropost_id])
+    @micropost = Micropost.find(params[:micropost_id])
     @comment = @micropost.comments.build(comment_params)
     @comment.user_id = current_user.id
     if @comment.save
       flash[:success] = 'コメントを投稿しました!'
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path) 
     else
       flash[:danger] = "コメント投稿に失敗しました"
       redirect_back(fallback_location: root_path) #元のページに戻る
@@ -16,9 +16,10 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
     @comment.destroy
     flash[:success] = "削除されました"
-    redirect_to request.referrer || micropost_url
+    redirect_back(fallback_location: root_path) 
   end
 
 
