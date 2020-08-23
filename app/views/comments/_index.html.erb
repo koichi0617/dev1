@@ -3,11 +3,9 @@
   <% unless comment.id.nil? %>
     <li class="comment-container">
         <div class="comment-box">
-            <div class="comment-avatar">
-                <%#= attachment_image_tag comment.user, :profile_image, fallback: "no_image.jpg", class:"comment-image", size: "40x40" %>
-            </div>
             <div class="comment-text">
-                <p><%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
+                <p><%= link_to gravatar_for(comment.user, size: 25), comment.user %>
+                <%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
                 <div class="comment-entry">
                     <%= comment.content %>
                     <% if comment.user == current_user %>
@@ -30,11 +28,9 @@
               <% unless comment.id.nil? %>
                 <li class="comment-container">
                     <div class="comment-box">
-                        <div class="comment-avatar">
-                            <%#= attachment_image_tag comment.user, :profile_image, fallback: "no_image.jpg", class:"comment-image", size: "40x40" %>
-                        </div>
                         <div class="comment-text">
-                            <p><%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
+                            <p><%= link_to gravatar_for(comment.user, size: 25), comment.user %>
+                            <%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
                             <div class="comment-entry">
                                 <%= comment.content %>
                                 <% if comment.user == current_user %>
