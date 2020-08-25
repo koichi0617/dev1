@@ -9,7 +9,7 @@
   </div>
 
   <div class="col-xs-6 index-rooms">
-    <%= @another_entries.each do |entry| %>
+    <% @another_entries.each do |entry| %>
       <div class="index-room">
         <%= link_to gravatar_for(entry.user, size: 25), user_path(entry.user) %>
         <%= link_to entry.user.name, user_path(entry.user) %>

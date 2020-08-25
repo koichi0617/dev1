@@ -1,4 +1,5 @@
 class MicropostsController < ApplicationController
+  protect_from_forgery :except => [:destroy]
   before_action :logged_in_user, only: [:create, :destroy, :solve]
   before_action :correct_user,   only: [:destroy, :solve]
 
@@ -34,6 +35,7 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
+    @micropost = Micropost.find(params[:id])
     @micropost.destroy
     flash[:success] = "削除されました"
     redirect_to request.referrer || microposts_url
@@ -41,7 +43,7 @@ class MicropostsController < ApplicationController
 
   def show
     @micropost = Micropost.find(params[:id])
-    @comments = @micropost.comments.all
+    @comments = @micropost.comments.where(comment_id: nil)
     @comment  = @micropost.comments.build if current_user
     @comment.user_id = current_user.id
   end

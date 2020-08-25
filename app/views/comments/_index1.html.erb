@@ -1,0 +1,197 @@
+<h6 class="more" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">もっと見る....</h6>
+<% comments.first(2).each do |comment| %>
+		<hr>
+		<ul>
+			<% unless comment.id.nil? && comment.comment_id.present? %>
+				<li class="comment-container">
+					<div class="comment-box">
+						<div class="comment-text">
+							<p><%= link_to gravatar_for(comment.user, size: 25), comment.user %>
+							<%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
+							<div class="comment-entry">
+								<%= comment.content %>
+								<% if comment.user == current_user %>
+									<%= link_to micropost_comment_path(comment.micropost_id, comment.id), method: :delete, remote: true, class: "comment_destroy" do %>
+										<i class="fas fa-trash" style="color: black;"></i>
+									<% end %>
+								<% end %>
+							</div>
+							<span class="comment-date pull-right">
+								<%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+							</span>
+							<div>
+								<%= form_with(model: [@micropost, comment], url: micropost_comments_path(@micropost) ) do |f| %>
+									<%= f.hidden_field :user_id, :value => current_user&.id %>
+									<%= f.hidden_field :micropost_id, :value => @micropost.id %>
+									<%= f.hidden_field :comment_id, :value => comment.id %>
+									
+									<%= f.text_area :content, class: "input-mysize" %>
+									<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+									<%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				
+					<%# <h6 class="more" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">もっと見る....</h6> %>
+					<% comment.children.each do |child| %>
+						<ul>
+							<% unless child.id.nil? %>
+								<li class="child-container">
+									<hr>
+									<div class="comment-box">
+										<div class="comment-text">
+											<p><%= link_to gravatar_for(child.user, size: 25), child.user %>
+											<%= link_to "@#{child.user.name}", user_path(child.user.id) %></p>
+											<div class="comment-entry">
+												<%= child.content %>
+												<% if child.user == current_user %>
+													<%= link_to micropost_comment_path(child.micropost_id, child.id), method: :delete, remote: true, class: "comment_destroy" do %>
+														<i class="fas fa-trash" style="color: black;"></i>
+													<% end %>
+												<% end %>
+											</div>
+											<span class="comment-date pull-right">
+												<%= child.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+											</span>
+											<div>
+												<%= form_with(model: [@micropost, child], url: micropost_comments_path(@micropost) ) do |f| %>
+													<%= f.hidden_field :user_id, :value => current_user&.id %>
+													<%= f.hidden_field :micropost_id, :value => @micropost.id %>
+													<%= f.hidden_field :comment_id, :value => child.id %>
+													
+													<%= f.text_area :content, class: "input-mysize" %>
+													<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+													<%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+												<% end %>
+											</div>
+										</div>
+									</div>
+
+									
+									<% child.children.each do |child| %>
+										<% unless child.id.nil? %>
+											<li class="child-container">
+												<hr>
+												<div class="comment-box">
+													<div class="comment-text">
+														<p><%= link_to gravatar_for(child.user, size: 25), child.user %>
+														<%= link_to "@#{child.user.name}", user_path(child.user.id) %></p>
+														<div class="comment-entry">
+															<%= child.content %>
+															<% if child.user == current_user %>
+																<%= link_to micropost_comment_path(child.micropost_id, child.id), method: :delete, remote: true, class: "comment_destroy" do %>
+																	<i class="fas fa-trash" style="color: black;"></i>
+																<% end %>
+															<% end %>
+														</div>
+														<span class="comment-date pull-right">
+															<%= child.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+														</span>
+														<div>
+															<%= form_with(model: [@micropost, child], url: micropost_comments_path(@micropost) ) do |f| %>
+																<%= f.hidden_field :user_id, :value => current_user&.id %>
+																<%= f.hidden_field :micropost_id, :value => @micropost.id %>
+																<%= f.hidden_field :comment_id, :value => child.id %>
+																
+																<%= f.text_area :content, class: "input-mysize" %>
+																<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+																<%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+															<% end %>
+														</div>
+													</div>
+												</div>
+											</li>
+										<% end %>
+									<% end %>
+
+								</li>
+
+							<% end %>
+						</ul>
+					<% end %>
+
+				</li>
+
+			<% end %>
+		</ul>
+<% end %>
+
+<!-- コメント内容(3件目以降) ------------------------------------------------------------------>
+<ul>
+	<div class="collapse" id="collapseExample">
+		<% comments.offset(2).each do |comment| %>
+			<hr>
+			<% unless comment.id.nil? %>
+				<li class="comment-container">
+					<div class="comment-box">
+						<div class="comment-text">
+							<p><%= link_to gravatar_for(comment.user, size: 25), comment.user %>
+							<%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
+							<div class="comment-entry">
+								<%= comment.content %>
+								<% if comment.user == current_user %>
+									<%= link_to micropost_comment_path(comment.micropost_id, comment.id), method: :delete, remote: true, class: "comment_destroy" do %>
+										<i class="fas fa-trash" style="color: black;"></i>
+									<% end %>
+								<% end %>
+							</div>
+							<span class="comment-date pull-right">
+								<%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+							</span>
+							<div>
+								<%= form_with(model: [@micropost, comment], url: micropost_comments_path(@micropost) ) do |f| %>
+									<%= f.hidden_field :user_id, :value => current_user&.id %>
+									<%= f.hidden_field :micropost_id, :value => @micropost.id %>
+									<%= f.hidden_field :comment_id, :value => comment.id %>
+									
+									<%= f.text_area :content, class: "input-mysize" %>
+									<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+									<%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+
+					<ul>
+						<li class="child-container">
+							<hr>
+							<% comment.children.each do |child| %>
+								<div class="comment-box">
+									<div class="comment-text">
+										<p><%= link_to gravatar_for(child.user, size: 25), child.user %>
+										<%= link_to "@#{child.user.name}", user_path(child.user.id) %></p>
+										<div class="comment-entry">
+											<%= child.content %>
+											<% if child.user == current_user %>
+												<%= link_to micropost_comment_path(child.micropost_id, child.id), method: :delete, remote: true, class: "comment_destroy" do %>
+													<i class="fas fa-trash" style="color: black;"></i>
+												<% end %>
+											<% end %>
+										</div>
+										<span class="comment-date pull-right">
+											<%= child.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+										</span>
+										<div>
+											<%= form_with(model: [@micropost, child], url: micropost_comments_path(@micropost) ) do |f| %>
+												<%= f.hidden_field :user_id, :value => current_user&.id %>
+												<%= f.hidden_field :micropost_id, :value => @micropost.id %>
+												<%= f.hidden_field :comment_id, :value => child.id %>
+												
+												<%= f.text_area :content, class: "input-mysize" %>
+												<%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+												<%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+											<% end %>
+										</div>
+									</div>
+								</div>
+							<% end %>
+						</li>
+					</ul>
+
+				</li>
+
+			<% end %>
+		<% end %>
+	</div>
+</ul>

@@ -1,6 +1,6 @@
 class Board < ApplicationRecord
   belongs_to :user, optional: true
-  #has_many :comments, dependent: :destroy
+  #has_many :comments, dependent: :destroy, inverse_of: :board
   default_scope -> { order(created_at: :desc) } #作成日時から降順に並べる
   mount_uploader :picture, PictureUploader
   validates :user_id, presence: true

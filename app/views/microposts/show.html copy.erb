@@ -1,6 +1,6 @@
 <% provide(:title, "About") %>
 
-<h3>詳細</h3>
+<h1>詳細</h1>
 
 <div class="question">
   <div>
@@ -37,14 +37,20 @@
 
 <hr>
 <div class="row">
-  <h3 class="text-left title">回答&nbsp;<%= @comments.count %>件</h3>
-  <%= render partial: 'comments/index', locals: { comments: @comments } %>
-  <hr>
-  <% if logged_in? %>
-      <div class="comment-create">
-          <h3 class="text-left">コメント投稿</h3>
-          <%= render partial: 'comments/form', locals: { comment: @comment } %>
-      </div>
-  <% end %>
+    <ul>
+        <li class="comment-create">
+            <h3 class="text-left title">コメント&nbsp;<%= @comments.count %>件</h3>
+        </li>
+        <li id="comments_area">
+          <%= render partial: 'comments/index', locals: { comments: @comments } %>
+        </li>
+    </ul>
+    <hr>
+    <% if logged_in? %>
+        <div class="comment-create">
+            <h3 class="text-left">コメント投稿</h3>
+            <%= render partial: 'comments/form', locals: { comment: @comment } %>
+        </div>
+    <% end %>
 </div>
 

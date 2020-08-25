@@ -1,3 +1,3 @@
 class Resolve < ApplicationRecord
-  has_many :microposts
+  has_many :microposts, inverse_of: :resolve
 end

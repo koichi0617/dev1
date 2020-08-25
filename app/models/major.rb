@@ -1,4 +1,4 @@
 class Major < ApplicationRecord
-  has_many :user
-  has_many :micropost
+  has_many :user, inverse_of: :major
+  has_many :micropost, inverse_of: :major
 end
