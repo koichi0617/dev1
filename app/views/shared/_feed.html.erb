@@ -8,7 +8,7 @@
         <% else %>
           未解決
         <% end %>
-        &emsp;/&emsp;<%= micropost.subject %>
+        &emsp;/&emsp;<%= micropost.subject %>&emsp;/&emsp;<%= micropost.major.name %>
       </div>
 
       <div class="who">
@@ -26,7 +26,11 @@
         <div>Posted <%= time_ago_in_words(micropost.created_at) %> ago.&emsp;</div>
         <% if current_user?(micropost.user) %>
           <div>
-            <%= link_to micropost_path(micropost.id), method: :delete, remote: true, class: "comment_destroy" do %>
+            <%= link_to micropost_path(micropost.id), method: :delete, title: '投稿削除',
+                       data: { confirm: '削除しますか?',
+                                commit: '削除',
+                                cancel: 'キャンセル' 
+                              }  do %>
               <i class="fas fa-trash" style="color: black;"></i>
             <% end %>&emsp;
           </div>

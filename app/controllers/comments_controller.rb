@@ -1,26 +1,35 @@
 class CommentsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: [:destroy]
+ 
+  def new
+    @micropost = Micropost.find(params[:micropost_id])
+    if logged_in?
+      @comment = Comment.new
+      @comment.user_id = current_user.id
+    else
+      render template: 'sessions/new'
+    end
+  end
 
   def create
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
-    #投稿にコメント追加
-    # @micropost = Micropost.find(params[:micropost_id])
-    # @comment = @micropost.comments.build(comment_params)
-    # @comment.user_id = current_user.id
-    #コメントにコメント追加
-    # @parent = Comment.find(params[:comment_id])
-    # @child = @parent.children.build(comment_params)
-    # @child.user_id = current_user.id
-    if @comment.save
-      flash[:success] = 'コメントを投稿しました!'
-      redirect_back(fallback_location: root_path) 
-    else
-      flash[:danger] = "コメント投稿に失敗しました"
-      redirect_back(fallback_location: root_path) #元のページに戻る
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to micropost_url, notice: '投稿されました' }
+        format.json { render :show, status: :created, location: @comment }
+        format.js { @status = "success"}
+        flash[:success] = 'コメントを投稿しました!'
+        redirect_back(fallback_location: root_path) 
+      else
+        format.html { render :new }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.js { @status = "fail" }
+        flash[:danger] = "コメント投稿に失敗しました"
+        redirect_back(fallback_location: root_path)
+      end
     end
-
   end
 
   def destroy

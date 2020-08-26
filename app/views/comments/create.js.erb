@@ -1,0 +1,6 @@
+<% if @status == 'success' %>
+  $("#micropost-modal").modal("hide")
+<%  elsif @status == 'fail' %>
+  alert('error!');
+<% end %>
+$("#comment-modal").modal("hide");

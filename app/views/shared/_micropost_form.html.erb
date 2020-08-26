@@ -3,21 +3,35 @@
     <%= form_for(@micropost, remote: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :major_id, "学部・学科" %>
-      <%= f.collection_select :major_id, Major.all, :id, :name, {prompt: '選択してください'} %>
-      
-      <div class="subject">
-        <%= f.text_area :subject, placeholder: "科目名・ジャンル" %>
+      <div class="modal-header">
+        <h3 class="modal-title">質問作成</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="field">
-        <%= f.text_area :content, placeholder: "質問内容", rows: 10 %>
+
+      <div class="modal-body">
+        <div class="form-group field">
+          <%= f.label :major_id, "学部・学科" %>
+          <%= f.collection_select :major_id, Major.all, :id, :name, {prompt: '選択してください'} %>
+          
+          <div class="subject">
+            <%= f.text_area :subject, placeholder: "科目名・ジャンル" %>
+          </div>
+          <div class="field">
+            <%= f.text_area :content, placeholder: "質問内容", rows: 10 %>
+          </div>
+          <span class="picture">
+            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+          </span>
+        </div>
       </div>
-      <span class="picture">
-        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-      </span>
-      <%= f.submit "質問する", class: "btn btn-primary" %>
+
+      <div class="modal-footer actions">
+        <%= f.submit "質問する", class: "btn btn-primary" %>
+      </div>
+
     <% end %>
-    <button>閉じる</button>
   </div>
 </div>
 

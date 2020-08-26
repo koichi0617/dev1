@@ -10,5 +10,5 @@
 </div>
 
 <div class="row">
-  <%= render 'shared/feed' %>
+  <%= render partial: 'boards/board', locals: {feed_items: @feed_items} %>
 </div>

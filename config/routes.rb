@@ -11,13 +11,12 @@ Rails.application.routes.draw do
   post '/microposts/:id/solve', to: 'microposts#solve',   as: 'solve'
   delete '/microposts/:id', to: 'comments#destroy'
   patch '/microposts/:id/comments', to: 'comments#create'
-  delete '/microposts', to: 'microposts#destroy'
 
   resources :users
   resources :account_activations, only: :edit
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :microposts, only: [:index, :new, :create, :show, :solve, :destroy] do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:new, :create, :destroy]
   end
   resources :boards, only: [:index, :new, :create, :show, :destroy]
   resources :rooms, only: [:index, :create, :show]
