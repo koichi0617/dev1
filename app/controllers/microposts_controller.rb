@@ -1,5 +1,4 @@
 class MicropostsController < ApplicationController
-  protect_from_forgery :except => [:destroy]
   before_action :logged_in_user, only: [:create, :destroy, :solve]
   before_action :correct_user,   only: [:destroy, :solve]
 
@@ -22,13 +21,27 @@ class MicropostsController < ApplicationController
   def create
     if logged_in?
       @micropost = current_user.microposts.build(micropost_params)
-      if @micropost.save
-        flash[:success] = "投稿されました"
-        redirect_to microposts_url
-      else
-        @feed_items = []
-        render 'microposts/index'
+      respond_to do |format|
+        if @micropost.save
+          format.html { redirect_to microposts_url, notice: '投稿されました' }
+          format.json { render :show, status: :created, location: @micropost }
+          format.js { @status = "success"}
+          redirect_to microposts_url
+        else
+          format.html { render :new }
+          format.json { render json: @micropost.errors, status: :unprocessable_entity }
+          format.js { @status = "fail" }
+          @feed_items = []
+          render 'microposts/index'
+        end
       end
+      # if @micropost.save
+      #   flash[:success] = "投稿されました"
+      #   redirect_to microposts_url
+      # else
+      #   @feed_items = []
+      #   render 'microposts/index'
+      # end
     else
       render template: 'sessions/new'
     end

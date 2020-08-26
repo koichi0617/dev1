@@ -1,4 +1,7 @@
 <%= form_with(model: [@micropost, comment], url: micropost_comments_path(@micropost) ) do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user&.id %>
+    <%= f.hidden_field :micropost_id, :value => @micropost.id %>
+    
     <%= f.text_area :content, class: "input-mysize" %>
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
     <%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>

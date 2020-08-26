@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/microposts/:id/solve', to: 'microposts#solve',   as: 'solve'
   delete '/microposts/:id', to: 'comments#destroy'
   patch '/microposts/:id/comments', to: 'comments#create'
+  delete '/microposts', to: 'microposts#destroy'
 
   resources :users
   resources :account_activations, only: :edit

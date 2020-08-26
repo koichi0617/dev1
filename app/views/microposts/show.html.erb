@@ -23,6 +23,9 @@
   <div>
     Posted <%= time_ago_in_words(@micropost.created_at) %> ago.&emsp;
   </div>
+  <div>
+    <%= link_to("削除", micropost_path(@micropost.id), data: { confirm: "削除しますか？" }, method: :delete) %>&emsp;
+  </div>
 </div>
 
 <% if current_user == @micropost.user %>

@@ -32,5 +32,5 @@
       <% end %>
     </div>
   </div>
-  <%= render 'shared/feed' %>
+  <%= render partial: 'shared/feed', locals: {feed_items: @feed_items} %>
 </div>

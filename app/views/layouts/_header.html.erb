@@ -23,7 +23,10 @@
         <% else %>
           <li><%= link_to 'ログイン', login_path %></li>
         <% end %>
-        <li class="post"><%= link_to "質問する", new_micropost_path %></li>
+        <li class="post">
+          <%= link_to "質問する", new_micropost_path, remote: true %>
+          <div id="micropost-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+        </li>
       </ul>
     </nav>
   </div>

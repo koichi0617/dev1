@@ -18,10 +18,7 @@
   <div class="col-md-9">
     <% if @user.microposts.any? %>
       <h3>質問 (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
-      </ol>
-      <%= will_paginate @microposts %>
+      <%= render partial: 'shared/feed', locals: { feed_items: @microposts} %>
     <% end %>
   </div>
 </div>

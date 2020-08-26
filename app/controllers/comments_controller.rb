@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
     #投稿にコメント追加
     # @micropost = Micropost.find(params[:micropost_id])
     # @comment = @micropost.comments.build(comment_params)
@@ -12,7 +13,7 @@ class CommentsController < ApplicationController
     # @parent = Comment.find(params[:comment_id])
     # @child = @parent.children.build(comment_params)
     # @child.user_id = current_user.id
-    if @comment.save || @child.save
+    if @comment.save
       flash[:success] = 'コメントを投稿しました!'
       redirect_back(fallback_location: root_path) 
     else

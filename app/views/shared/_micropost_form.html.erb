@@ -1,20 +1,25 @@
-<%= form_for(@micropost) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<div class="modal-dialog" role="document">
+  <div class="modal-content"> 
+    <%= form_for(@micropost, remote: true) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label :major_id, "学部・学科" %>
-  <%= f.collection_select :major_id, Major.all, :id, :name, {prompt: '選択してください'} %>
-  
-  <div class="subject">
-    <%= f.text_area :subject, placeholder: "科目名・ジャンル" %>
+      <%= f.label :major_id, "学部・学科" %>
+      <%= f.collection_select :major_id, Major.all, :id, :name, {prompt: '選択してください'} %>
+      
+      <div class="subject">
+        <%= f.text_area :subject, placeholder: "科目名・ジャンル" %>
+      </div>
+      <div class="field">
+        <%= f.text_area :content, placeholder: "質問内容", rows: 10 %>
+      </div>
+      <span class="picture">
+        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+      </span>
+      <%= f.submit "質問する", class: "btn btn-primary" %>
+    <% end %>
+    <button>閉じる</button>
   </div>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "質問内容", rows: 10 %>
-  </div>
-  <span class="picture">
-    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-  </span>
-  <%= f.submit "質問する", class: "btn btn-primary" %>
-<% end %>
+</div>
 
 <script type="text/javascript">
   $('#micropost_picture').bind('change', function() {
@@ -24,3 +29,4 @@
     }
   });
 </script>
+
