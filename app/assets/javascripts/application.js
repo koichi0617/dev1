@@ -15,7 +15,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery3
-//= require popper
-//= require bootstrap-sprockets
 //= require data-confirm-modal
 //= require_tree .
