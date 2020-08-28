@@ -16,10 +16,9 @@ gem 'jquery-ui-rails'
 gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.7.0'
 gem 'rails-ujs'
-gem 'ransack'
-gem 'bootstrap', '4.3.1'
 gem 'data-confirm-modal'
-
+gem 'loofah', '2.6.0'
+gem 'bootstrap'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
