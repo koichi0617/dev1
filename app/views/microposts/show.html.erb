@@ -45,8 +45,6 @@
 <% end %>
 
 <hr>
-<div class="row">
-  <h3 class="text-left title">回答&nbsp;<%= @comments.count %>件</h3>
-  <%= render partial: 'comments/index', locals: { comments: @comments } %>
-</div>
+<h4 class="text-left title">回答&nbsp;<%= @comments.count %>件</h4>
+<%= render partial: 'comments/index', locals: { comments: @comments } %>
 

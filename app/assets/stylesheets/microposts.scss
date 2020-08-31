@@ -1,3 +1,105 @@
-// Place all the styles related to the Microposts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.microposts {
+  width: 100%;
+  flex-wrap: wrap; //折り返し
+  justify-content: center;
+  display: inline-flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    flex: 0 0 auto; //伸ばすか 縮むか 謎
+    position: relative;
+    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    margin: 15px 15px;
+    padding: 10px 10px;
+    width: 350px;
+    height: 275px;
+    border-radius: 3%;
+  }
+  .category{
+    height: 10%;
+    vertical-align: middle;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.274);
+  }
+  .who{
+    height: 10%;
+    margin-top: 5px;
+    .gravatar {
+      float: left;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .user {
+      vertical-align: middle;
+    }
+  }
+  .content {
+    text-align: center;
+    margin-top: 5px;
+    width: 100%;
+    height: 75%;
+    .q-text{
+      overflow: hidden; //はみ出した文をスクロールで表示
+      word-break: normal;
+      padding: 5px 5px;
+      height: 50%;
+      width: 100%;
+      text-align: left;
+      border-bottom: solid 1px rgba(0, 0, 0, 0.274);
+    }
+    .q-pic{
+      overflow: hidden;
+      height: 50%;
+      img {
+        display: block;
+        padding: 5px 0;
+      }
+    }
+  }
+  .timestamp {
+    height: 5%;
+    display: inline-flex;
+    flex-direction: row;
+    color: rgb(187, 184, 184);
+  }
+}
+
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+span.picture {
+  margin-top: 10px;
+  input {
+    border: 0;
+  }
+}
+
+.index-top{
+  display: inline-flex;
+  flex-direction: row;
+}
+
+/* narrow down */
+
+.posts__searchForm {
+  display: inline-block;
+}
+
+.narrow-down-solve{
+  display: inline-flex;
+  flex-direction:column;
+  .solve-narrow{
+    display: inline-flex;
+    flex-direction: row;
+  }
+}
+  

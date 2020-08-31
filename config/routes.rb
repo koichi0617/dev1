@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   get 'password_resets/new'
   get 'password_resets/edit'
   post '/microposts/:id/solve', to: 'microposts#solve',   as: 'solve'
-  delete '/microposts/:id', to: 'comments#destroy'
   patch '/microposts/:id/comments', to: 'comments#create'
+  
 
   resources :users
   resources :account_activations, only: :edit

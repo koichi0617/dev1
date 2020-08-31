@@ -1,57 +1,59 @@
-<% comments.first(2).each do |comment| %>
-  <hr>
-  <ul>
-    <% unless comment.id.nil? %>
-      <li class="comment-container">
-        <div class="comment-box">
-          <div class="comment-text">
-            <p><%= link_to gravatar_for(comment.user, size: 25), comment.user %>
-            <%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
-            <div class="comment-entry">
-              <%= comment.content %>
-            </div>
-            <span class="comment-date pull-right">
-              <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>&nbsp;
-              <% if comment.user == current_user %>
-                <%= link_to micropost_comment_path(comment.micropost_id, comment.id), method: :delete, remote: true, class: "comment_destroy" do %>
-                  <i class="fas fa-trash" style="color: black;"></i>
+<div>
+  <% comments.first(2).each do |comment| %>
+    <hr>
+    <ul>
+      <% unless comment.id.nil? %>
+        <li class="comment-container">
+          <div class="comment-box">
+            <div class="comment-text">
+              <p><%= link_to gravatar_for(comment.user, size: 25), comment.user %>
+              <%= link_to "@#{comment.user.name}", user_path(comment.user.id) %></p>
+              <div class="comment-entry">
+                <%= comment.content %>
+              </div>
+              <span class="comment-date pull-right">
+                <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>&nbsp;
+                <% if comment.user == current_user %>
+                  <%= link_to micropost_comment_path(comment.micropost_id, comment.id), method: :delete, remote: true, class: "comment_destroy" do %>
+                    <i class="fas fa-trash" style="color: black;"></i>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </span>
-            <div>
-              <%= form_with(model: [@micropost, comment], url: micropost_comments_path(@micropost) ) do |f| %>
-                <%= f.hidden_field :user_id, :value => current_user&.id %>
-                <%= f.hidden_field :micropost_id, :value => @micropost.id %>
-                <%= f.hidden_field :comment_id, :value => comment.id %>
-                
-                <%= f.text_area :content, class: "input-mysize", placeholder: "コメント", value: "" %>
-                <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-                <%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
-              <% end %>
+              </span>
+              <div>
+                <%= form_with(model: [@micropost, comment], url: micropost_comments_path(@micropost) ) do |f| %>
+                  <%= f.hidden_field :user_id, :value => current_user&.id %>
+                  <%= f.hidden_field :micropost_id, :value => @micropost.id %>
+                  <%= f.hidden_field :comment_id, :value => comment.id %>
+                  
+                  <%= f.text_area :content, class: "input-mysize", placeholder: "コメント", value: "" %>
+                  <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+                  <%= f.submit "送信", class: "btn btn-outline-dark comment-submit float-right" %>
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
-        
-        <ul class="collapse collapse-<%= comment.id %>">
-          <% eval(" @comment_each = comment ") %>
-          <%= render :partial => 'comments/child', :locals => { :childs => @comment_each } %>
-        </ul>
+          
+          <ul class="collapse collapse-<%= comment.id %>">
+            <% eval(" @comment_each = comment ") %>
+            <%= render :partial => 'comments/child', :locals => { :childs => @comment_each } %>
+          </ul>
 
-        <% unless comment.children.empty? %>
-          <a data-toggle="collapse" href=".collapse-<%= comment.id %>">もっと見る...</a>
-        <% end %>
+          <% unless comment.children.empty? %>
+            <a data-toggle="collapse" href=".collapse-<%= comment.id %>"> 返信を見る...</a>
+          <% end %>
 
-      </li>
+        </li>
 
-    <% end %>
-  </ul>
-<% end %>
-<hr>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 <a data-toggle="collapse" href=".collapse-menu">もっと見る...</a>
 
 <!-- コメント内容(3件目以降) ------------------------------------------------------------------>
-<hr>
+
 <ul class="collapse collapse-menu">
+  <hr>
 	<div>
     <% comments.offset(2).each do |comment| %>
       <% unless comment.id.nil? && !comment.comment_id.nil? %>

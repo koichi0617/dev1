@@ -1,12 +1,12 @@
 <ol class="microposts">
   <% feed_items.each do |micropost| %>
-    <li id="micropost-<%= micropost.id %>">
+    <li id="micropost-<%= micropost.id %>" class="shadow">
 
       <div class="category">
         <% if micropost.solve == true %>
-          解決済み
+          <i class="fas fa-check"></i>
         <% else %>
-          未解決
+          未
         <% end %>
         &emsp;/&emsp;<%= micropost.subject %>&emsp;/&emsp;<%= micropost.major.name %>
       </div>

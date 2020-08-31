@@ -1,31 +1,37 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "アゴラ", root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "通知", "#" %></li>
-        <li><%= link_to '質問一覧', microposts_path %></li>
-        <li><%= link_to '掲示板', boards_path %></li>
-        <% if logged_in? %>
-          <li><%= link_to "ユーザー", users_path %></li>
-          <li><%= link_to "トーク", rooms_path %></li>
-          <li class="dropdown drop-hover">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnOpenMenu">
-              アカウント <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
-              <li class="dropdown-item"><%= link_to 'プロフィール', current_user %></li>
-              <li class="dropdown-item"><%= link_to '設定', edit_user_path(current_user) %></li>
-              <li class="dropdown-item"><%= link_to 'ログアウト', logout_path, method: :delete %></li>
-            </ul>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <%= link_to "アゴラ", root_path, id: "logo", class: "navbar-brand" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data="{turbolinks => false}">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav navbar-right ml-auto">
+          <li class="nav-item"><%= link_to "通知", "#", class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '質問一覧', microposts_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '掲示板', boards_path, class: "nav-link" %></li>
+          <% if logged_in? %>
+            <li class="nav-item"><%= link_to "ユーザー", users_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "トーク", rooms_path, class: "nav-link" %></li>
+            <li class="nav-item dropdown drop-hover">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnOpenMenu">
+                アカウント <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
+                <li class="dropdown-item"><%= link_to 'プロフィール', current_user %></li>
+                <li class="dropdown-item"><%= link_to '設定', edit_user_path(current_user) %></li>
+                <li class="dropdown-item"><%= link_to 'ログアウト', logout_path, method: :delete %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="nav-item"><%= link_to 'ログイン', login_path, class: "nav-link" %></li>
+          <% end %>
+          <li class="nav-item post">
+            <%= link_to "質問する", new_micropost_path, remote: true, class: "nav-link" %>
           </li>
-        <% else %>
-          <li><%= link_to 'ログイン', login_path %></li>
-        <% end %>
-        <li class="post">
-          <%= link_to "質問する", new_micropost_path, remote: true %>
-        </li>
-      </ul>
-    </nav>
-  </div>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>
