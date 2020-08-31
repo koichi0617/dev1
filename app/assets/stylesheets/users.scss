@@ -7,3 +7,53 @@
     border-bottom: 1px solid rgb(167, 165, 165);
   }
 }
+
+aside {
+  section.user_info {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    .top {
+      margin-bottom: 5px;
+      display: inline-flex;
+      flex-direction: row;
+      .pic{
+        margin-bottom: 5px;
+      }
+      .name{
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center; //上下中央揃え
+        margin-bottom: 5px;
+        text-align: left;
+        .username{
+          font-size: 24px;
+          font-weight: bold;
+        }
+        .usermajor{
+          font-size: 18px;
+        }
+      }
+    }
+    .profile{
+      padding: 3px;
+      margin: 5px 0px;
+      height: 120px;
+      .texterea{
+        word-break: keep-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .sns p{
+      margin-bottom: 2px;
+    }
+  }
+}

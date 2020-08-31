@@ -35,13 +35,6 @@ class MicropostsController < ApplicationController
           render 'microposts/index'
         end
       end
-      # if @micropost.save
-      #   flash[:success] = "投稿されました"
-      #   redirect_to microposts_url
-      # else
-      #   @feed_items = []
-      #   render 'microposts/index'
-      # end
     else
       render template: 'sessions/new'
     end

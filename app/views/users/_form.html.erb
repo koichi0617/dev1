@@ -16,5 +16,8 @@
   <%= f.label :password_confirmation, "パスワード確認" %>
   <%= f.text_field :password_confirmation, class: 'form-control' %>
 
+  <%= f.label :profile, "プロフィール" %>
+  <%= f.text_field :profile, class: 'form-control', rows: 6 %>
+
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>

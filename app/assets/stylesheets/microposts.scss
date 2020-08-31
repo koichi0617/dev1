@@ -20,6 +20,11 @@
     width: 350px;
     height: 275px;
     border-radius: 3%;
+    filter: drop-shadow(0 0px 3px rgba(0, 0, 0, .4));
+    transition: filter .5s;
+  }
+  li:hover{
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, .4));
   }
   .category{
     height: 10%;

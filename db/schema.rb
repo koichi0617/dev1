@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200824064610) do
+ActiveRecord::Schema.define(version: 20200831023524) do
 
   create_table "b_comments", force: :cascade do |t|
     t.text "content", null: false
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20200824064610) do
     t.string "faculty"
     t.string "major"
     t.integer "major_id"
+    t.text "profile"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["major_id"], name: "index_users_on_major_id"
   end
