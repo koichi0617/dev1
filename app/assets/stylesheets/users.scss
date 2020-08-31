@@ -45,11 +45,13 @@ aside {
       padding: 3px;
       margin: 5px 0px;
       height: 120px;
-      .texterea{
-        word-break: keep-all;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      @supports (-webkit-line-clamp: 4) {
+        .texterea {
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+        }
       }
     }
     .sns p{
