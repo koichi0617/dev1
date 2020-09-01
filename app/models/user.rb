@@ -16,7 +16,7 @@ class User < ApplicationRecord
                     uniqueness: {case_sensitive: false}
   has_secure_password
   validates :password, presence: true, length: {minimum:6}, allow_nil: true
-  validates :profile, length: { maximum: 200 }
+  validates :profile, length: { maximum: 100 }
 
   #渡された文字列のハッシュ値を返す
   def self.digest(string)
