@@ -43,17 +43,20 @@ aside {
     }
     .profile{
       padding: 3px;
-      margin: 5px 0px;
+      margin: 5px 0px ;
       height: 120px;
-      .texterea{
-        word-break: keep-all;
+      @supports (-webkit-line-clamp: 4) {
+        display: -webkit-box;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        -webkit-line-clamp: 7;
+        -webkit-box-orient: vertical;
       }
     }
-    .sns p{
-      margin-bottom: 2px;
+    .sns{
+      margin-top: 10px;
+      p{
+        margin-bottom: 2px;
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ class MicropostsController < ApplicationController
     @feed_items = params[:resolve_id].present? ? @feed_items.where(resolve: params[:resolve_id]) : @feed_items
     @feed_items = params[:keyword].present? ? @feed_items.where("subject LIKE ?", "%#{params[:keyword]}%") : @feed_items
     @feed_items = @feed_items.page(params[:page])
+    @like = Micropost.likes.find_by(micropost_id: params[:id], user_id: current_user.id)
   end
 
   def new
@@ -52,6 +53,7 @@ class MicropostsController < ApplicationController
     @comments = @micropost.comments.where(comment_id: nil)
     @comment  = @micropost.comments.build if current_user
     @comment.user_id = current_user.id
+    @like = Like.where(micropost_id: params[:id])
   end
 
   def solve

@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-3">
+  <aside class="col-md-4">
     <section class="user_info">
       <div class="top">
         <div class="pic">
@@ -12,9 +12,7 @@
         </div>
       </div>
       <div class="profile">
-        <div class="texterea">
-          <%= @user.profile %>
-        </div>
+        <%= @user.profile %>
       </div>
       <div class="sns">
         <p><i class="far fa-envelope fa-lg"></i>&nbsp;<%= render 'contact' %></p>
@@ -26,10 +24,20 @@
       </div>
     </section>
   </aside>
-  <div class="col-md-9">
+  <div class="col-md-4">
     <% if @user.microposts.any? %>
       <h3>質問 (<%= @user.microposts.count %>)</h3>
       <%= render partial: 'shared/feed', locals: { feed_items: @microposts} %>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+    <% if @user.like_microposts.any? %>
+      <h3>いいね (<%= @user.like_microposts.count %>)</h3>
+      <%= render partial: 'shared/feed', locals: { feed_items: @like_microposts} %>
+    <% end %>
+    <% if @user.comment_microposts.any? %>
+      <h3>回答した質問 (<%= @user.comment_microposts.count %>)</h3>
+      <%= render partial: 'shared/feed', locals: { feed_items: @comment_microposts} %>
     <% end %>
   </div>
 </div>
