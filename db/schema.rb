@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200831023524) do
+ActiveRecord::Schema.define(version: 20200901050956) do
 
   create_table "b_comments", force: :cascade do |t|
     t.text "content", null: false
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 20200831023524) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.integer "micropost_id"
     t.integer "user_id"
+    t.integer "micropost_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

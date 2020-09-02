@@ -1,0 +1,1 @@
+$("#index_like_<%= params[:micropost_id] %>").html("<%= j(render partial: 'likes/like', locals: { micropost: @micropost}) %>");

@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_many :messages, inverse_of: :user
   has_many :entries, inverse_of: :user
   has_many :rooms, through: :entries
+  has_many :likes, dependent: :destroy, inverse_of: :user
+  has_many :like_microposts, through: :likes, source: :micropost
+  has_many :comment_microposts, through: :comments, source: :micropost
   attr_accessor :remember_token, :activation_token, :reset_token #仮想の属性を定義することでしたで使えるようにする
   before_save :downcase_email #データベースに保存する前にアドレスを小文字にする
   before_create :create_activation_digest
