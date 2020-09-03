@@ -21,6 +21,9 @@ Major.create(:name => '医・保健')
 Major.create(:name => '薬・薬')
 Major.create(:name => '薬・創薬')
 
+Resolve.create!(:name => '解決済み', :solve => true)
+Resolve.create!(:name => '未解決', :solve => false)
+
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
@@ -48,10 +51,6 @@ users = User.order(:created_at).take(6)
   content = Faker::Lorem.sentence(word_count: 5)
   users.each { |user| user.microposts.create!(content: content, major_id: 2, subject: content) }
 end
-
-
-Resolve.create!(:name => '解決済み', :solve => true)
-Resolve.create!(:name => '未解決', :solve => false)
 
 Board.create!(:name => 'メンバー募集！', :content => 'みんなおいで！', :user_id => 1)
 Board.create!(:name => 'メンバー募集！', :content => 'みんなこいよ！', :user_id => 2)
