@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'password_resets/edit'
   post '/microposts/:id/solve', to: 'microposts#solve',   as: 'solve'
   patch '/microposts/:id/comments', to: 'comments#create'
+  delete '/notifications', to: 'notifications#destroy_all', as: 'destroy_all'
   
 
   resources :users
@@ -22,6 +23,6 @@ Rails.application.routes.draw do
   resources :boards, only: [:index, :new, :create, :show, :destroy]
   resources :rooms, only: [:index, :create, :show]
   resources :messages, only: [:create, :edit, :update, :destroy]
-  
+  resources :notifications, only: [:index]
 
 end

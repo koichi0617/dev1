@@ -1,12 +1,12 @@
 class CreateNotifications < ActiveRecord::Migration[5.1]
   def change
     create_table :notifications do |t|
-      t.integer :visitor_id, null: false
-      t.integer :visited_id, null: false
-      t.integer :micropost_id
+      t.integer :visitor_id
+      t.integer :visited_id
+      t.integer :item_id
       t.integer :comment_id
       t.string :action
-      t.boolean :checked
+      t.boolean :checked, default: false, null: false
 
       t.timestamps
     end

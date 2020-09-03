@@ -13,14 +13,17 @@ class CommentsController < ApplicationController
   end
 
   def create
+    @micropost = Micropost.find(params[:micropost_id])
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
+    @comment_micropost = @comment.micropost
     respond_to do |format|
       if @comment.save
         format.html { redirect_to micropost_url, notice: '投稿されました' }
         format.json { render :show, status: :created, location: @comment }
         format.js { @status = "success"}
         flash[:success] = 'コメントを投稿しました!'
+        @comment_micropost.create_notification_comment!(current_user, @comment.id)
         redirect_back(fallback_location: root_path) 
       else
         format.html { render :new }

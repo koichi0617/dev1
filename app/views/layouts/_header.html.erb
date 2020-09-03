@@ -9,10 +9,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav navbar-right ml-auto">
           <li class="nav-item active"><%= link_to "ホーム", root_path, class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "通知", "#", class: "nav-link" %></li>
           <li class="nav-item"><%= link_to '質問一覧', microposts_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to '掲示板', boards_path, class: "nav-link" %></li>
           <% if logged_in? %>
+            <% if unchecked_notifications.any? %>
+              <i class="fa fa-circle" style="color: gold;"></i>
+            <% end %>
+            <li class="nav-item"><%= link_to "通知", notifications_path, remote: true, class: "nav-link" %></li>
             <li class="nav-item"><%= link_to "ユーザー", users_path, class: "nav-link" %></li>
             <li class="nav-item"><%= link_to "トーク", rooms_path, class: "nav-link" %></li>
             <li class="nav-item dropdown">

@@ -1,0 +1,13 @@
+<% visitor = notification.visitor %>
+<% micropost = notification.micropost %>
+
+<div class="user-view clearfix mb-4">
+  <%= link_to user_path(notification.visitor) do %>
+    <%= gravatar_for visitor, size: 50 %>
+  <% end %>
+  <%= notification_form(notification) %><span class="moderate-font"><%= " (#{time_ago_in_words(notification.created_at)} 前)" %></span>
+  <br class="mb-0">
+  <% if !@comment.nil? %>
+    <p class="moderate-font text-center" style="color: #C0C0C0;"><%= @comment.content %></p>
+  <% end %>
+</div>

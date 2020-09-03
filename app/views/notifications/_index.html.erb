@@ -1,0 +1,29 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content"> 
+    <div class="modal-header">
+      <h3 class="modal-title">通知</h3>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <hr>
+
+    <div class="modal-body">
+      <div id="index_notification">
+        <% if @notifications.present? %>
+            <div class="users-index">
+                <%= render @notifications %>
+            </div>
+        <% else %>
+            <p>通知はありません</p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <%= link_to destroy_all_path, method: :delete, remote: true do %>
+        <i class="fas fa-trash" style="color: black;"></i>&nbsp;全削除
+      <% end %>
+    </div>
+  </div>
+</div>
