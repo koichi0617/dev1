@@ -10,18 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200902081001) do
-
-  create_table "b_comments", force: :cascade do |t|
-    t.text "content", null: false
-    t.string "picture"
-    t.integer "board_id"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["board_id"], name: "index_b_comments_on_board_id"
-    t.index ["user_id"], name: "index_b_comments_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 20200903044307) do
 
   create_table "boards", force: :cascade do |t|
     t.string "name", null: false
@@ -40,7 +29,9 @@ ActiveRecord::Schema.define(version: 20200902081001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "board_id"
     t.integer "comment_id"
+    t.index ["board_id"], name: "index_comments_on_board_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["micropost_id"], name: "index_comments_on_micropost_id"
     t.index ["user_id"], name: "index_comments_on_user_id"

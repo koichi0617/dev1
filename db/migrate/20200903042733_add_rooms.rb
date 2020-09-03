@@ -1,4 +1,4 @@
-class CreateMessages < ActiveRecord::Migration[5.1]
+class AddRooms < ActiveRecord::Migration[5.1]
   def change
     create_table :rooms do |t|
 
