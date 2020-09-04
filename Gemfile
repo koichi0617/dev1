@@ -19,6 +19,7 @@ gem 'rails-ujs'
 gem 'data-confirm-modal'
 gem 'loofah', '2.6.0'
 gem 'bootstrap'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'

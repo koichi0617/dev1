@@ -28,12 +28,18 @@ Rails.application.configure do
 
   #メールの表示を確認
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :smtp
   host = 'localhost:3000'
-  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
-
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'herokuapp.com',
+    :enable_starttls_auto => true
+  }
 
   config.action_mailer.perform_caching = false
 
@@ -57,8 +63,6 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   logger           = ActiveSupport::Logger.new(STDOUT)
   logger.formatter = config.log_formatter
