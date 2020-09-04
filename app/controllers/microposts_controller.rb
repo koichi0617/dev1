@@ -14,7 +14,7 @@ class MicropostsController < ApplicationController
       @micropost  = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page])
     else
-      render template: 'sessions/new'
+      render  'sessions/new'
     end
   end
 

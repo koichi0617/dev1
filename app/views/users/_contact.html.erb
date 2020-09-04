@@ -8,7 +8,7 @@
       <%= form_with(model: @room, local: true) do |f| %>
         <%= fields_for @entry do |e| %>
           <%= e.hidden_field :user_id, :value => @user.id %>
-        <%= f.submit 'メッセージを送る' %>
+          <%= f.submit 'メッセージを送る' %>
         <% end %>
       <% end %>
     <% end %>
