@@ -2,7 +2,7 @@ require 'sendgrid-ruby'
 include SendGrid
 
 module AccountActivationsHelper
-  def send_account_vefification_mail(user)
+  def send_account_velification_mail(user)
     to = SendGrid::Email.new(email: user.email)
     subject = '【アゴラ】アカウント認証メール'
     content = SendGrid::Content.new(

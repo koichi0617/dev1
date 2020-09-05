@@ -3,7 +3,7 @@
 <p>こんにちは <%= @user.name %>さん,</p>
 
 <p>
-AGORAへようこそ！ 下記リンクをクリックしてアカウントを認証してください
+アゴラへようこそ！ 下記リンクをクリックしてアカウントを認証してください
 </p>
 
 <%= link_to "Activate", edit_account_activation_url(@user.activation_token,
