@@ -1,3 +1,5 @@
+include AccountActivationsHelper
+
 class UsersController < ApplicationController
   #edit,updateアクションを行う前にログインしているか、正しいアカウントかを確認
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
@@ -42,7 +44,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      UserMailer.with(user: @user).account_activation.deliver_later
+      send_account_velification_mail(@user)
       flash[:info] = "メールを送信しました。アカウントを認証してください。"
       redirect_to root_url
     else
@@ -72,7 +74,7 @@ class UsersController < ApplicationController
   private
   
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :profile)
+      params.require(:user).permit(:name, :email, :major_id, :password, :password_confirmation, :profile)
     end
 
     def correct_user
