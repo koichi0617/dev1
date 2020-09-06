@@ -282,6 +282,7 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.3.1)
+    line-bot-api (1.16.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -457,6 +458,7 @@ DEPENDENCIES
   jbuilder (= 2.7.0)
   jquery-rails (= 4.3.1)
   jquery-ui-rails
+  line-bot-api
   listen (= 3.1.5)
   loofah (= 2.6.0)
   mini_magick

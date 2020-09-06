@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post '/microposts/:id/solve', to: 'microposts#solve',   as: 'solve'
   patch '/microposts/:id/comments', to: 'comments#create'
   delete '/notifications', to: 'notifications#destroy_all', as: 'destroy_all'
+  post '/callback', to: 'linebot#callback'
   
 
   resources :users

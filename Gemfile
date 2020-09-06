@@ -21,6 +21,7 @@ gem 'loofah', '2.6.0'
 gem 'bootstrap'
 gem 'dotenv-rails'
 gem 'sendgrid-ruby'
+gem 'line-bot-api'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
