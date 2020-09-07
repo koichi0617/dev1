@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   patch '/microposts/:id/comments', to: 'comments#create'
   delete '/notifications', to: 'notifications#destroy_all', as: 'destroy_all'
   post '/callback', to: 'linebot#callback'
+  post '/notice', to: 'linebot#notice'
   
 
   resources :users

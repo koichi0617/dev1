@@ -12,7 +12,6 @@ class LinebotController < ApplicationController
   end
 
   def callback
-    logger.debug('ログだよーん')
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
@@ -31,8 +30,29 @@ class LinebotController < ApplicationController
           }
         end
       end
+      #応答メッセージを送る
       client.reply_message(event['replyToken'], message)
     end
+    head :ok
+  end
+
+  def notice
+    @notifications = current_user.passive_notifications
+    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    unless client.validate_signature(body, signature)
+      error 400 do 'Bad Request' end
+    end
+    events = client.parse_events_from(body)
+
+    events.each do |event|
+      case event
+      case @notifications
+      when @notifications.count += 1
+        notification == @notifications.last
+        client.reply_message(event['replyToken'], notification_form(notification))
+      end
+    end
+
     head :ok
   end
 end
