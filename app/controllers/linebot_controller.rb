@@ -42,15 +42,11 @@ class LinebotController < ApplicationController
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
-    events = client.parse_events_from(body)
 
-    events.each do |event|
-      case event
-      case @notifications
-      when @notifications.count += 1
-        notification == @notifications.last
-        client.reply_message(event['replyToken'], notification_form(notification))
-      end
+    case @notifications
+    when @notifications.count += 1
+      notification == @notifications.last
+      client.message(notification_form(notification))
     end
 
     head :ok
