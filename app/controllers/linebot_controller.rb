@@ -15,7 +15,9 @@ class LinebotController < ApplicationController
     logger.debug('/callback')
     body = request.body.read
     logger.debug(body)
+    logger.debug('XXXXXXXXXXXX')
     signature = request.env['HTTP_X_LINE_SIGNATURE']
+    logger.debug('YYYYYYYYYYYY')
     unless client.validate_signature(body, signature)
       head :bad_request
     end
