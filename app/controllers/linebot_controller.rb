@@ -46,7 +46,7 @@ class LinebotController < ApplicationController
     case @notifications
     when @notifications.count += 1
       notification == @notifications.last
-      client.message(notification_form(notification))
+      client.push_message("<to>", notification_form(notification))
     end
 
     head :ok
