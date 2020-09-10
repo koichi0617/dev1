@@ -80,6 +80,7 @@ class UsersController < ApplicationController
     #POSTを送ってレスポンスを受け取る
     uri = URI.parse(request.url) #現在のURLを分割して取得
     http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.scheme === "https"
     q_hash = CGI.parse(uri.query)
     code = q_hash['code'].first
     state = q_hash['state'].first
