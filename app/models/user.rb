@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  devise :omniauthable, omniauth_providers: [:line]
   belongs_to :major, optional: true
-  has_many :social_profiles, dependent: :destroy
   has_many :microposts, dependent: :destroy, inverse_of: :user
   has_many :comments, dependent: :destroy, inverse_of: :user
   has_many :boards, dependent: :destroy, inverse_of: :user
@@ -86,10 +84,6 @@ class User < ApplicationRecord
 
   def feed_board
     Board.where("user_id = ?", id)
-  end
-
-  def social_profile(provider)
-    social_profiles.select{ |sp| sp.provider == provider.to_s }.first
   end
 
   private
