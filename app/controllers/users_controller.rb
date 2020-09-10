@@ -105,7 +105,7 @@ class UsersController < ApplicationController
     # check nonce (Optional. But strongly recommended)
     nonce = '_stored_in_session_'
     expected_nonce = decoded_id_token.get('nonce')
-    if nonce != decoded_id_token.get('nonce'):
+    if nonce != decoded_id_token.get('nonce')
       raise RuntimeError('invalid nonce')
     end
 
