@@ -1,5 +1,6 @@
 include AccountActivationsHelper
 require 'securerandom'
+require 'uri'
 
 class UsersController < ApplicationController
   #edit,updateアクションを行う前にログインしているか、正しいアカウントかを確認
@@ -73,7 +74,9 @@ class UsersController < ApplicationController
   end
 
   def callback
-
+    q_hash = get_query
+    code = q_hash.fetch['code']
+    state = q_hash.fetch['state']
   end
 
   def line
@@ -95,5 +98,11 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to(root_url) unless current_user && current_user.admin?
+    end
+
+    def get_query
+      uri = URI.parse(request.url)
+      q_array = URI.decode_www_form(uri.query)
+      Hash[q_array]
     end
 end
