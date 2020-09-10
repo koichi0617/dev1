@@ -78,9 +78,10 @@ class UsersController < ApplicationController
 
   def callback
     #POSTを送ってレスポンスを受け取る
+    res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
+    http = Net::HTTP.new(res_uri.host, res_uri.port)
+    http.use_ssl = res_uri.scheme === "https"
     uri = URI.parse(request.url) #現在のURLを分割して取得
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = uri.scheme === "https"
     q_hash = CGI.parse(uri.query)
     code = q_hash['code'].first
     state = q_hash['state'].first
@@ -91,7 +92,7 @@ class UsersController < ApplicationController
                 client_secret: ENV['LINE_LOGIN_SECRET']
     }
     headers = { "Content-Type" => "application/x-www-form-urlencoded" }
-    response = http.post(uri.path, params.to_json, headers)
+    response = http.post(res_uri.path, params.to_json, headers)
 
     response.code
     response.body
