@@ -100,7 +100,6 @@ class UsersController < ApplicationController
     decoded_id_token = JWT.decode(id_token,
                               ENV['LINE_LOGIN_SECRET'],
                               audience=ENV['LINE_LOGIN_ID'],
-                              issuer='https://access.line.me',
                               algorithms=['HS256'])
     nonce = '_stored_in_session_'
     expected_nonce = decoded_id_token.get('nonce')
