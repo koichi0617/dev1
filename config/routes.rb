@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   delete '/notifications', to: 'notifications#destroy_all', as: 'destroy_all'
   post '/callback', to: 'linebot#callback'
   post '/notice', to: 'linebot#notice'
+  get '/users/callback', to: 'users#callback'
+  get '/auth/line/redirect_url', to: 'users#line'
   
 
   resources :users

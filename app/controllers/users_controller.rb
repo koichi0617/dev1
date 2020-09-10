@@ -1,4 +1,5 @@
 include AccountActivationsHelper
+require 'securerandom'
 
 class UsersController < ApplicationController
   #edit,updateアクションを行う前にログインしているか、正しいアカウントかを確認
@@ -69,6 +70,16 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "削除しました"
     redirect_to users_url
+  end
+
+  def callback
+
+  end
+
+  def line
+    nonce = SecureRandom.hex(16)
+    line_url = ENV['LINE_LOGIN_URL'] + '&client_id=' + ENV['LINE_LOGIN_ID'] + '&redirect_uri=' + ENV['LINE_REDIRECT_URL'] + '&nonce=' + nonce
+    redirect_to line_url
   end
 
   private
