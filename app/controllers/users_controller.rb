@@ -1,6 +1,9 @@
 include AccountActivationsHelper
 require 'securerandom'
+require 'net/http'
 require 'uri'
+require 'json'
+require 'jwt'
 
 class UsersController < ApplicationController
   #edit,updateアクションを行う前にログインしているか、正しいアカウントかを確認
@@ -74,11 +77,40 @@ class UsersController < ApplicationController
   end
 
   def callback
+    #POSTを送ってレスポンスを受け取る
     uri = URI.parse(request.url) #現在のURLを分割して取得
-    #q_hash = Rack::Utils.parse_nested_query(uri.query) #クエリパラメータをハッシュで取得
+    http = Net::HTTP.new(uri.host, uri.port)
     q_hash = CGI.parse(uri.query)
-    @code = q_hash['code'].first
-    @state = q_hash['state'].first
+    code = q_hash['code'].first
+    state = q_hash['state'].first
+    params = { grant_type: "authorization_code",
+                code: code,
+                redirect_uri: ENV['LINE_REDIRECT_URL'],
+                client_id: ENV['LINE_LOGIN_ID'],
+                client_secret: ENV['LINE_LOGIN_SECRET']
+    }
+    headers = { "Content-Type" => "application/x-www-form-urlencoded" }
+    response = http.post(uri.path, params.to_json, headers)
+
+    response.code
+    response.body
+    id_token = CGI.parse(response.body)['id_token'].first
+    #受け取ったid_tokenをデコードしてopen_idを取得したい
+    decoded_id_token = jwt.decode(id_token,
+                              channel_secret,
+                              audience=channel_id,
+                              issuer='https://access.line.me',
+                              algorithms=['HS256'])
+
+    # check nonce (Optional. But strongly recommended)
+    nonce = '_stored_in_session_'
+    expected_nonce = decoded_id_token.get('nonce')
+    if nonce != decoded_id_token.get('nonce'):
+      raise RuntimeError('invalid nonce')
+    end
+
+    #usersテーブルに値を格納
+    @user.open_id = decoded_id_token.sub
   end
 
   def line
@@ -102,9 +134,19 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user && current_user.admin?
     end
 
-    def get_query
-      uri = URI.parse(request.url)
-      q_array = URI.decode_www_form(uri.query)
-      q_hash = Hash[q_array]
+    def get_response
+      uri = URI.parse(request.url) #現在のURLを分割して取得
+      http = Net::HTTP.new(uri.host, uri.port)
+      q_hash = CGI.parse(uri.query)
+      code = q_hash['code'].first
+      state = q_hash['state'].first
+      params = { grant_type: "authorization_code",
+                  code: code,
+                  redirect_uri: ENV['LINE_REDIRECT_URL'],
+                  client_id: ENV['LINE_LOGIN_ID'],
+                  client_secret: ENV['LINE_LOGIN_SECRET']
+      }
+      headers = { "Content-Type" => "application/x-www-form-urlencoded" }
+      response = http.post(uri.path, params.to_json, headers)
     end
 end
