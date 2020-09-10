@@ -108,7 +108,7 @@ class UsersController < ApplicationController
     end
 
     #usersテーブルに値を格納
-    @user.open_id = decoded_id_token.sub
+    @user.open_id = CGI.parse(decoded_id_token)['sub'].first
   end
 
   def line
