@@ -1,4 +1,5 @@
 include AccountActivationsHelper
+require 'securerandom'
 
 class UsersController < ApplicationController
   #edit,updateアクションを行う前にログインしているか、正しいアカウントかを確認
@@ -10,6 +11,8 @@ class UsersController < ApplicationController
     @users = params[:major_id].present? ? User.where(major_id: params[:major_id]) : User.all
     @users = params[:keyword].present? ? @users.where("name LIKE ?", "%#{params[:keyword]}%") : @users
     @users = @users.paginate(page: params[:page])
+
+    redirect_to line
   end
 
   def show
@@ -70,6 +73,17 @@ class UsersController < ApplicationController
     flash[:success] = "削除しました"
     redirect_to users_url
   end
+
+  def callback
+    
+  end
+  
+  def url
+    nonce = SecureRandom.hex(16)
+    url = ENV['LINE_LOGIN_URL'] + '&client_id=' + ENV['LINE_LOGIN_ID'] + '&redirect_uri=' + ENV['LINE_REDIRECT_URL'] + '&nonce=' + nonce
+    redirect_to url
+  end
+
 
   private
   
