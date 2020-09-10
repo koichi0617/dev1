@@ -74,7 +74,9 @@ class UsersController < ApplicationController
   end
 
   def callback
-    get_query
+    uri = URI.parse(request.url)
+    q_array = URI.decode_www_form(uri.query)
+    q_hash = Hash[q_array]
     code = q_hash.fetch['code']
     state = q_hash.fetch['state']
   end
