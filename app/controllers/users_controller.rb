@@ -77,8 +77,8 @@ class UsersController < ApplicationController
     uri = URI.parse(request.url) #現在のURLを分割して取得
     #q_hash = Rack::Utils.parse_nested_query(uri.query) #クエリパラメータをハッシュで取得
     q_hash = CGI.parse(uri.query)
-    code = q_hash['code'].first
-    state = q_hash['state'].first
+    @code = q_hash['code'].first
+    @state = q_hash['state'].first
   end
 
   def line
