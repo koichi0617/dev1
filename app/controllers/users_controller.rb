@@ -98,8 +98,8 @@ class UsersController < ApplicationController
     id_token = CGI.parse(response.body)['id_token'].first
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
-                              ENV['LINE_LOGIN_SECRET'],
-                              audience=ENV['LINE_LOGIN_ID'],
+                              nil,
+                              true,
                               algorithms=['HS256'])
     nonce = '_stored_in_session_'
     expected_nonce = decoded_id_token.get('nonce')
