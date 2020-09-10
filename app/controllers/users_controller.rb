@@ -75,8 +75,7 @@ class UsersController < ApplicationController
 
   def callback
     uri = URI.parse(request.url)
-    q_array = URI.decode_www_form(uri.query)
-    q_hash = Hash[q_array]
+    q_hash = Rack::Utils.parse_nested_query(uri.query)
     code = q_hash.fetch['code']
     state = q_hash.fetch['state']
   end
