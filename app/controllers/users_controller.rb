@@ -93,18 +93,15 @@ class UsersController < ApplicationController
     }
     headers = { "Content-Type" => "application/x-www-form-urlencoded" }
     response = http.post(res_uri.path, params.to_json, headers)
-
     response.code
     response.body
     id_token = CGI.parse(response.body)['id_token'].first
     #受け取ったid_tokenをデコードしてopen_idを取得したい
-    decoded_id_token = jwt.decode(id_token,
+    decoded_id_token = JWT.decode(id_token,
                               channel_secret,
                               audience=channel_id,
                               issuer='https://access.line.me',
                               algorithms=['HS256'])
-
-    # check nonce (Optional. But strongly recommended)
     nonce = '_stored_in_session_'
     expected_nonce = decoded_id_token.get('nonce')
     if nonce != decoded_id_token.get('nonce')
