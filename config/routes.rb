@@ -17,9 +17,6 @@ Rails.application.routes.draw do
   delete '/notifications', to: 'notifications#destroy_all', as: 'destroy_all'
   post '/callback', to: 'linebot#callback'
   post '/notice', to: 'linebot#notice'
-  get '/users/auth/line/callback', to: 'omniauth_callbacks#line'
-  get '/users/callback', to: 'users#callback'
-  get '/auth/line/redirect_url', to: 'users#url'
   
 
   resources :users

@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def line; basic_action end
+  def line; ; end
 
   private
 
