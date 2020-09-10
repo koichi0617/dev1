@@ -22,6 +22,7 @@ gem 'bootstrap'
 gem 'dotenv-rails'
 gem 'sendgrid-ruby'
 gem 'line-bot-api'
+gem 'jwt'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
