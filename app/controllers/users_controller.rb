@@ -91,7 +91,7 @@ class UsersController < ApplicationController
                 client_id: ENV['LINE_LOGIN_ID'],
                 client_secret: ENV['LINE_LOGIN_SECRET']
     }
-    headers = { "Content-Type" => "application/x-www-form-urlencoded" }
+    headers = { "Content-Type" => "application/json" }
     req = Net::HTTP::Post.new(res_uri.path)
     req.set_form_data(params)
     req.initialize_http_header(headers)
