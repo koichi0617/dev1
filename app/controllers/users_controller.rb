@@ -94,14 +94,10 @@ class UsersController < ApplicationController
     headers = { "Content-Type" => "application/x-www-form-urlencoded" }
     response = http.post(res_uri.path, params.to_json, headers)
     id_token = CGI.parse(response.body)['id_token'].first
-    logger.debug('==========================')
-    logger.debug(id_token)
-    logger.debug('==========================')
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
-                              ENV['LINE_LOGIN_SECRET'],
-                              audience=ENV['LINE_LOGIN_ID'],
-                              algorithms=['HS256'])
+                              nil,
+                              false)
     nonce = '_stored_in_session_'
     expected_nonce = decoded_id_token.get('nonce')
     if nonce != decoded_id_token.get('nonce')
