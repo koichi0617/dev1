@@ -77,40 +77,36 @@ class UsersController < ApplicationController
   end
 
   def callback
-    logger.debug(AAAAAAAAAAAAAAAAAAAAAAAAA)
-  end
+    #POSTを送ってレスポンスを受け取る
+    res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
+    http = Net::HTTP.new(res_uri.host, res_uri.port)
+    http.use_ssl = res_uri.scheme === "https"
+    uri = URI.parse(request.url) #現在のURLを分割して取得
+    q_hash = CGI.parse(uri.query)
+    code = q_hash['code'].first
+    state = q_hash['state'].first
+    params = { grant_type: "authorization_code",
+                code: code,
+                redirect_uri: ENV['LINE_REDIRECT_URL'],
+                client_id: ENV['LINE_LOGIN_ID'],
+                client_secret: ENV['LINE_LOGIN_SECRET']
+    }
+    headers = { "Content-Type" => "application/x-www-form-urlencoded" }
+    response = http.post(res_uri.path, params.to_json, headers)
+    id_token = CGI.parse(response.body)['id_token'].first
+    #受け取ったid_tokenをデコードしてopen_idを取得したい
+    decoded_id_token = JWT.decode(id_token,
+                              ENV['LINE_LOGIN_SECRET'],
+                              audience=ENV['LINE_LOGIN_ID'],
+                              algorithms=['HS256'])
+    nonce = '_stored_in_session_'
+    expected_nonce = decoded_id_token.get('nonce')
+    if nonce != decoded_id_token.get('nonce')
+      raise RuntimeError('invalid nonce')
+    end
 
-  def callback2
-    # #POSTを送ってレスポンスを受け取る
-    # res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
-    # http = Net::HTTP.new(res_uri.host, res_uri.port)
-    # http.use_ssl = res_uri.scheme === "https"
-    # uri = URI.parse(request.url) #現在のURLを分割して取得
-    # q_hash = CGI.parse(uri.query)
-    # code = q_hash['code'].first
-    # state = q_hash['state'].first
-    # params = { grant_type: "authorization_code",
-    #             code: code,
-    #             redirect_uri: ENV['LINE_REDIRECT_URL'],
-    #             client_id: ENV['LINE_LOGIN_ID'],
-    #             client_secret: ENV['LINE_LOGIN_SECRET']
-    # }
-    # headers = { "Content-Type" => "application/x-www-form-urlencoded" }
-    # response = http.post(res_uri.path, params.to_json, headers)
-    # id_token = CGI.parse(response.body)['id_token'].first
-    # #受け取ったid_tokenをデコードしてopen_idを取得したい
-    # decoded_id_token = JWT.decode(id_token,
-    #                           ENV['LINE_LOGIN_SECRET'],
-    #                           audience=ENV['LINE_LOGIN_ID'],
-    #                           algorithms=['HS256'])
-    # nonce = '_stored_in_session_'
-    # expected_nonce = decoded_id_token.get('nonce')
-    # if nonce != decoded_id_token.get('nonce')
-    #   raise RuntimeError('invalid nonce')
-    # end
-
-    # #usersテーブルに値を格納
-    # @user.open_id = decoded_id_token.sub
+    #usersテーブルに値を格納
+    @user.open_id = decoded_id_token.sub
   end
 
   def line
