@@ -96,7 +96,7 @@ class UsersController < ApplicationController
     req.set_form_data(params)
     req.initialize_http_header(headers)
     response = http.request(req)
-    id_token = ActiveSupport::JSON.decode(response.body).id_token
+    id_token = CGI.parse(response.body)['id_token'].first
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
                               nil,
