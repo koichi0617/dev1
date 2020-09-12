@@ -94,6 +94,7 @@ class UsersController < ApplicationController
     headers = { "Content-Type" => "application/x-www-form-urlencoded" }
     response = http.post(res_uri.path, params.to_json, headers)
     id_token = CGI.parse(response.body)['id_token'].first
+    logger.debug(id_token)
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
                               ENV['LINE_LOGIN_SECRET'],
