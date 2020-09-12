@@ -114,9 +114,9 @@ class UsersController < ApplicationController
   end
 
   def line
-    nonce = SecureRandom.hex(16)
-    line_url = ENV['LINE_LOGIN_URL'] + '&client_id=' + ENV['LINE_LOGIN_ID'] + '&redirect_uri=' + ENV['LINE_REDIRECT_URL'] + '&nonce=' + nonce
-    redirect_to line_url
+    # nonce = SecureRandom.hex(16)
+    # line_url = ENV['LINE_LOGIN_URL'] + '&client_id=' + ENV['LINE_LOGIN_ID'] + '&redirect_uri=' + ENV['LINE_REDIRECT_URL'] + '&nonce=' + nonce
+    redirect_to '/'
   end
 
   private
