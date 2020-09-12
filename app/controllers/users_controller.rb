@@ -92,7 +92,10 @@ class UsersController < ApplicationController
                 client_secret: ENV['LINE_LOGIN_SECRET']
     }
     headers = { "Content-Type" => "application/x-www-form-urlencoded" }
-    response = http.post(res_uri.path, params.to_json, headers)
+    req = Net::HTTP::Post.new(res_uri.path)
+    req.set_form_data(params)
+    req.initialize_http_header(headers)
+    response = http.request(req)
     id_token = CGI.parse(response.body)['id_token'].first
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
