@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   end
 
   def callback
-    @user = User.find(params[:id])
+    @user = User.find(params[current_user.id])
     #POSTを送ってレスポンスを受け取る
     uri = URI.parse(request.url) #現在のURLを分割して取得
     q_hash = CGI.parse(uri.query)
@@ -110,9 +110,6 @@ class UsersController < ApplicationController
     logger.error("decoded_id_token = #{decoded_id_token}")
     logger.error("==================")
     logger.error("decoded_id_token.sub = #{decoded_id_token[0]['sub']}")
-    # de_id_token = JSON.parse(decoded_id_token[0], quirks_mode: true)
-    # logger.error("==================")
-    # logger.error("de_id_token = #{de_id_token}")
     # expected_nonce = decoded_id_token.get('nonce')
     # if nonce != decoded_id_token.get('nonce')
     #   raise RuntimeError('invalid nonce')
