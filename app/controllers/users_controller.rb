@@ -97,7 +97,7 @@ class UsersController < ApplicationController
     logger.error("params = #{params}")
     headers = { "Content-Type" => "application/json" }
     req = Net::HTTP::Post.new(res_uri.path)
-    req.set_form_data(params, ;)
+    req.set_form_data(params, ';')
     req.initialize_http_header(headers)
     response = http.request(req)
     logger.error("==================")
