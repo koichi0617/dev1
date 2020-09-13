@@ -105,9 +105,11 @@ class UsersController < ApplicationController
     logger.error("id_token = #{id_token}")
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token, nil, false, { algorithm: 'HS256' })
+    logger.error("==================")
+    logger.error("decoded_id_token = #{decoded_id_token}")
     de_id_token = JSON.parse(decoded_id_token[0], quirks_mode: true)
     logger.error("==================")
-    logger.error("decoded_id_token = #{decoded_id_token}, de_id_token = #{de_id_token}")
+    logger.error("de_id_token = #{de_id_token}")
     # expected_nonce = decoded_id_token.get('nonce')
     # if nonce != decoded_id_token.get('nonce')
     #   raise RuntimeError('invalid nonce')
