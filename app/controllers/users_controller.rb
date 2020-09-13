@@ -93,6 +93,8 @@ class UsersController < ApplicationController
                 client_id: ENV['LINE_LOGIN_ID'],
                 client_secret: ENV['LINE_LOGIN_SECRET']
     }
+    logger.error("==================")
+    logger.error("params = #{params}")
     headers = { "Content-Type" => "application/json" }
     req = Net::HTTP::Post.new(res_uri.path)
     req.set_form_data(params)
