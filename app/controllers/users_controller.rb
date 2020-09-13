@@ -78,28 +78,25 @@ class UsersController < ApplicationController
 
   def callback
     #POSTを送ってレスポンスを受け取る
-    res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
-    http = Net::HTTP.new(res_uri.host, res_uri.port)
-    http.use_ssl = res_uri.scheme === "https"
     uri = URI.parse(request.url) #現在のURLを分割して取得
     q_hash = CGI.parse(uri.query)
     code = q_hash['code'].first
     state = q_hash['state'].first
-    logger.error("==================")
-    logger.error("code = #{code}, state = #{state}")
-    params = { grant_type: "authorization_code",
-                code: code,
-                redirect_uri: ENV['LINE_REDIRECT_URL'],
-                client_id: ENV['LINE_LOGIN_ID'],
-                client_secret: ENV['LINE_LOGIN_SECRET']
+
+    res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
+    req = Net::HTTP::Post.new(res_uri)
+    req.content_type = "application/x-www-form-urlencoded"
+    req.set_form_data(:grant_type=>"authorization_code", 
+                      :code=>"1C4QLPkJPVVgdiamkqM8", 
+                      :redirect_uri=>"https://agile-inlet-26178.herokuapp.com/users/callback", 
+                      :client_id=>"1654902921", 
+                      :client_secret=>"ad16bbcab136356c00b89469bbc5bdcd")
+    req_options = {
+      use_ssl: uri.scheme == "https",
     }
-    logger.error("==================")
-    logger.error("params = #{params}")
-    headers = { "Content-Type" => "application/x-www-form-urlencoded" }
-    req = Net::HTTP::Post.new(res_uri.path)
-    req.set_form_data(params, ';')
-    req.initialize_http_header(headers)
-    response = http.request(req)
+    response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
+      http.request(request)
+    end
     logger.error("==================")
     logger.error("response = #{response}, response.code = #{response.code}, response.body = #{response.body}")
     id_token = ActiveSupport::JSON.decode(response.body).id_token
