@@ -82,9 +82,9 @@ class UsersController < ApplicationController
     q_hash = CGI.parse(uri.query)
     code = q_hash['code'].first
     state = q_hash['state'].first
-    
+
     res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
-    req = Net::HTTP::Post.new(res_uri)
+    req = Net::HTTP::Post.new(res_uri.path)
     req.content_type = "application/x-www-form-urlencoded"
     req.set_form_data(:grant_type => code, 
                       :code => "1C4QLPkJPVVgdiamkqM8", 
