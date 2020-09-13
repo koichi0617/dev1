@@ -99,7 +99,7 @@ class UsersController < ApplicationController
     end
     logger.error("==================")
     logger.error("response = #{response}, response.code = #{response.code}, response.body = #{response.body}")
-    id_token = ActiveSupport::JSON.decode(response.body).id_token
+    id_token = response.body.id_token
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
                               nil,
