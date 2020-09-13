@@ -77,6 +77,7 @@ class UsersController < ApplicationController
   end
 
   def callback
+    @user = User.find(params[:id])
     #POSTを送ってレスポンスを受け取る
     uri = URI.parse(request.url) #現在のURLを分割して取得
     q_hash = CGI.parse(uri.query)
@@ -118,7 +119,7 @@ class UsersController < ApplicationController
     # end
 
     #usersテーブルに値を格納
-    @user.open_id = decoded_id_token[0].values[1]
+    @user.open_id = decoded_id_token[0]['sub']
     logger.error("==================")
     logger.error("open_id = #{@user.open_id}")
   end
