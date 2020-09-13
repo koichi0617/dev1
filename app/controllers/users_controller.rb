@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   end
 
   def callback
-    @user = User.find(params[current_user.id])
+    @user = User.find(current_user.id)
     #POSTを送ってレスポンスを受け取る
     uri = URI.parse(request.url) #現在のURLを分割して取得
     q_hash = CGI.parse(uri.query)
