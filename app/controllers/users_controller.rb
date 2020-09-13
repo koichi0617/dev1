@@ -86,11 +86,11 @@ class UsersController < ApplicationController
     res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
     req = Net::HTTP::Post.new(res_uri.path)
     req.content_type = "application/x-www-form-urlencoded"
-    req.set_form_data("grant_type" => "authorization_code", 
-                      "code" => code, 
-                      "redirect_uri" => ENV['LINE_REDIRECT_URL'], 
-                      "client_id" => ENV['LINE_LOGIN_ID'], 
-                      "client_secret" => ENV['LINE_LOGIN_SECRET'])
+    req.set_form_data(:grant_type => "authorization_code", 
+                      :code => code, 
+                      :redirect_uri => ENV['LINE_REDIRECT_URL'], 
+                      :client_id => ENV['LINE_LOGIN_ID'], 
+                      :client_secret => ENV['LINE_LOGIN_SECRET'])
     req_options = {
       use_ssl: res_uri.scheme == "https"
     }
@@ -100,6 +100,8 @@ class UsersController < ApplicationController
     logger.error("==================")
     logger.error("response = #{response}, response.code = #{response.code}, response.body = #{response.body}")
     id_token = response.body['id_token'].first
+    logger.error("==================")
+    logger.error("id_token = #{id_token}")
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
                               nil,
