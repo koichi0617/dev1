@@ -14,7 +14,7 @@ Rails.application.configure do
 
   config.assets.compile = false
 
-  config.log_level = :info
+  config.log_level = :error
   config.log_tags = [ :request_id ]
 
   config.action_mailer.perform_caching = false

@@ -85,6 +85,8 @@ class UsersController < ApplicationController
     q_hash = CGI.parse(uri.query)
     code = q_hash['code'].first
     state = q_hash['state'].first
+    logger.error("==================")
+    logger.error("#{code}, #{state}")
     params = { grant_type: "authorization_code",
                 code: code,
                 redirect_uri: ENV['LINE_REDIRECT_URL'],
@@ -96,6 +98,8 @@ class UsersController < ApplicationController
     req.set_form_data(params)
     req.initialize_http_header(headers)
     response = http.request(req)
+    logger.error("==================")
+    logger.error("#{response}")
     id_token = ActiveSupport::JSON.decode(response.body).id_token
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token,
