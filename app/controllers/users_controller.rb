@@ -104,10 +104,9 @@ class UsersController < ApplicationController
     logger.error("==================")
     logger.error("id_token = #{id_token}")
     #受け取ったid_tokenをデコードしてopen_idを取得したい
-    decoded_id_token = JWT.decode(id_token,
-                              nil,
-                              true,
-                              algorithms=['HS256'])
+    decoded_id_token = JWT.decode(id_token, nil, true, { algorithm: 'HS256' })
+    logger.error("==================")
+    logger.error("decoded_id_token = #{decoded_id_token}")
     nonce = '_stored_in_session_'
     expected_nonce = decoded_id_token.get('nonce')
     if nonce != decoded_id_token.get('nonce')
