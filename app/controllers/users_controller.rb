@@ -107,7 +107,7 @@ class UsersController < ApplicationController
     decoded_id_token = JWT.decode(id_token,
                               nil,
                               true,
-                              )
+                              algorithms=['HS256'])
     nonce = '_stored_in_session_'
     expected_nonce = decoded_id_token.get('nonce')
     if nonce != decoded_id_token.get('nonce')
