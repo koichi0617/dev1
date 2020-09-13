@@ -116,7 +116,7 @@ class UsersController < ApplicationController
     # end
 
     #usersテーブルに値を格納
-    @user.open_id = decoded_id_token[0]['sub']
+    @user.update( open_id: decoded_id_token[0]['sub'] )
     logger.error("==================")
     logger.error("open_id = #{@user.open_id}")
   end
