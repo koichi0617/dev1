@@ -108,7 +108,7 @@ class UsersController < ApplicationController
     logger.error("==================")
     logger.error("decoded_id_token = #{decoded_id_token}")
     logger.error("==================")
-    logger.error("decoded_id_token[0] = #{decoded_id_token[0]}")
+    logger.error("decoded_id_token.sub = #{decoded_id_token[0]['sub']}")
     # de_id_token = JSON.parse(decoded_id_token[0], quirks_mode: true)
     # logger.error("==================")
     # logger.error("de_id_token = #{de_id_token}")
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     # end
 
     #usersテーブルに値を格納
-    @user.open_id = decoded_id_token[0]['sub']
+    @user.open_id = decoded_id_token[0].values[1]
     logger.error("==================")
     logger.error("open_id = #{@user.open_id}")
   end
