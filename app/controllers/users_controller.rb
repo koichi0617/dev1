@@ -92,7 +92,7 @@ class UsersController < ApplicationController
                       "client_id" => ENV['LINE_LOGIN_ID'], 
                       "client_secret" => ENV['LINE_LOGIN_SECRET'])
     req_options = {
-      use_ssl: uri.scheme == "https"
+      use_ssl: res_uri.scheme == "https"
     }
     response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
       http.request(req)
