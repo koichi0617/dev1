@@ -95,7 +95,7 @@ class UsersController < ApplicationController
       use_ssl: uri.scheme == "https",
     }
     response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
-      http.request(request)
+      http.request(req)
     end
     logger.error("==================")
     logger.error("response = #{response}, response.code = #{response.code}, response.body = #{response.body}")
