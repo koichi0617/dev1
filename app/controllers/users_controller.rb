@@ -86,13 +86,13 @@ class UsersController < ApplicationController
     res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
     req = Net::HTTP::Post.new(res_uri.path)
     req.content_type = "application/x-www-form-urlencoded"
-    req.set_form_data(:grant_type => code, 
-                      :code => "1C4QLPkJPVVgdiamkqM8", 
-                      :redirect_uri => "https://agile-inlet-26178.herokuapp.com/users/callback", 
-                      :client_id => "1654902921", 
-                      :client_secret => "ad16bbcab136356c00b89469bbc5bdcd")
+    req.set_form_data(:grant_type => "authorization_code", 
+                      :code => code, 
+                      :redirect_uri => ENV['LINE_REDIRECT_URL'], 
+                      :client_id => ENV['LINE_LOGIN_ID'], 
+                      :client_secret => ENV['LINE_LOGIN_SECRET'])
     req_options = {
-      use_ssl: uri.scheme == "https",
+      use_ssl: uri.scheme == "https"
     }
     response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
       http.request(req)
