@@ -82,15 +82,15 @@ class UsersController < ApplicationController
     q_hash = CGI.parse(uri.query)
     code = q_hash['code'].first
     state = q_hash['state'].first
-
+    
     res_uri = URI.parse("https://api.line.me/oauth2/v2.1/token")
     req = Net::HTTP::Post.new(res_uri)
     req.content_type = "application/x-www-form-urlencoded"
-    req.set_form_data(:grant_type=>"authorization_code", 
-                      :code=>"1C4QLPkJPVVgdiamkqM8", 
-                      :redirect_uri=>"https://agile-inlet-26178.herokuapp.com/users/callback", 
-                      :client_id=>"1654902921", 
-                      :client_secret=>"ad16bbcab136356c00b89469bbc5bdcd")
+    req.set_form_data(:grant_type => code, 
+                      :code => "1C4QLPkJPVVgdiamkqM8", 
+                      :redirect_uri => "https://agile-inlet-26178.herokuapp.com/users/callback", 
+                      :client_id => "1654902921", 
+                      :client_secret => "ad16bbcab136356c00b89469bbc5bdcd")
     req_options = {
       use_ssl: uri.scheme == "https",
     }
