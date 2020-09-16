@@ -1,4 +1,5 @@
 class Micropost < ApplicationRecord
+  require 'line/bot'
   belongs_to :user
   belongs_to :major, optional: true
   belongs_to :resolve, optional: true
