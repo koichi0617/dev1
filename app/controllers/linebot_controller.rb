@@ -39,6 +39,8 @@ class LinebotController < ApplicationController
   def notice
     @user = User.find(current_user.id)
     @notifications = current_user.passive_notifications
+    debugger.error("====================")
+    debugger.error(@notifications.count)
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
@@ -47,10 +49,14 @@ class LinebotController < ApplicationController
     case @notifications
     when @notifications.count += 1
       notification == @notifications.last
+      debugger.error("====================")
+      debugger.error(@notification.action)
       message = {
         type: 'text',
         text: notification_form(notification)
       }
+      debugger.error("====================")
+      debugger.error(message['text'].first)
 
       response = client.push_message(@user.line_id, message)
       p response
