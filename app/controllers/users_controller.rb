@@ -98,27 +98,13 @@ class UsersController < ApplicationController
     response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
       http.request(req)
     end
-    logger.error("==================")
-    logger.error("response = #{response}, response.code = #{response.code}, response.body = #{response.body}")
     res_body = JSON.parse(response.body, quirks_mode: true)
     id_token = res_body['id_token']
-    logger.error("==================")
-    logger.error("id_token = #{id_token}")
     #受け取ったid_tokenをデコードしてopen_idを取得したい
     decoded_id_token = JWT.decode(id_token, nil, false, { algorithm: 'HS256' })
-    logger.error("==================")
-    logger.error("decoded_id_token = #{decoded_id_token}")
-    logger.error("==================")
-    logger.error("decoded_id_token.sub = #{decoded_id_token[0]['sub']}")
-    # expected_nonce = decoded_id_token.get('nonce')
-    # if nonce != decoded_id_token.get('nonce')
-    #   raise RuntimeError('invalid nonce')
-    # end
 
     #usersテーブルに値を格納
     @user.update( line_id: decoded_id_token[0]['sub'] )
-    logger.error("==================")
-    logger.error("line_id = #{@user.line_id}")
   end
 
   def line
@@ -142,19 +128,4 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user && current_user.admin?
     end
 
-    def get_response
-      uri = URI.parse(request.url) #現在のURLを分割して取得
-      http = Net::HTTP.new(uri.host, uri.port)
-      q_hash = CGI.parse(uri.query)
-      code = q_hash['code'].first
-      state = q_hash['state'].first
-      params = { grant_type: "authorization_code",
-                  code: code,
-                  redirect_uri: ENV['LINE_REDIRECT_URL'],
-                  client_id: ENV['LINE_LOGIN_ID'],
-                  client_secret: ENV['LINE_LOGIN_SECRET']
-      }
-      headers = { "Content-Type" => "application/x-www-form-urlencoded" }
-      response = http.post(uri.path, params.to_json, headers)
-    end
 end

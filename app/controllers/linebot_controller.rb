@@ -6,7 +6,7 @@ class LinebotController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_secret = ENV["LINE_BOT_SECRET"]
       config.channel_token = ENV["LINE_ACCESS_TOKEN"]
     }
   end
@@ -37,6 +37,7 @@ class LinebotController < ApplicationController
   end
 
   def notice
+    @user = User.find(current_user.id)
     @notifications = current_user.passive_notifications
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
@@ -46,9 +47,24 @@ class LinebotController < ApplicationController
     case @notifications
     when @notifications.count += 1
       notification == @notifications.last
-      client.push_message("<to>", notification_form(notification))
+      res_uri = URI.parse("https://api.line.me/v2/bot/message/push")
+      req = Net::HTTP::Post.new(res_uri.path)
+      req.content_type = "application/x-www-form-urlencoded"
+      req.authorization = "Bearer #{LINE_ACCESS_TOKEN}"
+      req.set_form_data(:to => "#{@user.line_id}",
+                        :messages => (:type => "text",
+                                      :text => notification_form(notification))
+                        )
+      req_options = {
+        use_ssl: res_uri.scheme == "https"
+      }
+      response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
+        http.request(req)
+      end
     end
 
     head :ok
   end
+
+  
 end
