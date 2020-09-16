@@ -11,7 +11,7 @@ class Micropost < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 500 }
   validate  :picture_size
-  after_action :notice, only: [:create_notification_by, :create_notification_comment!]
+  after_commit :notice, only: [:create_notification_by, :create_notification_comment!]
 
   def liked_by?(user)
     likes.where(user_id: user.id).exists?
