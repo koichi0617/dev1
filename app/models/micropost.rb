@@ -10,6 +10,7 @@ class Micropost < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 500 }
   validate  :picture_size
+  after_action :notice, only: [:create_notification_by, :create_notification_comment!]
 
   def liked_by?(user)
     likes.where(user_id: user.id).exists?
@@ -23,7 +24,6 @@ class Micropost < ApplicationRecord
       action: "like"
     )
     notification.save if notification.valid?
-    redirect_to '/notice'
   end
 
   def create_notification_comment!(current_user, comment_id)
@@ -49,7 +49,37 @@ class Micropost < ApplicationRecord
       notification.checked = true
     end
     notification.save if notification.valid?
-    redirect_to '/notice'
+  end
+
+  def client
+    @client ||= Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_BOT_SECRET"]
+      config.channel_token = ENV["LINE_ACCESS_TOKEN"]
+    }
+  end
+
+  def notice
+    @user = User.find(current_user.id)
+    @notifications = current_user.passive_notifications
+    debugger.error("====================")
+    debugger.error(@notifications.count)
+    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    unless client.validate_signature(body, signature)
+      error 400 do 'Bad Request' end
+    end
+
+    notification == @notifications.last
+    debugger.error("====================")
+    debugger.error(@notification.action)
+    message = {
+      type: 'text',
+      text: notification_form(notification)
+    }
+    debugger.error("====================")
+    debugger.error(message['text'].first)
+
+    response = client.push_message(@user.line_id, message)
+    p response
   end
 
   private
