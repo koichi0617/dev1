@@ -47,21 +47,33 @@ class LinebotController < ApplicationController
     case @notifications
     when @notifications.count += 1
       notification == @notifications.last
-      res_uri = URI.parse("https://api.line.me/v2/bot/message/push")
-      req = Net::HTTP::Post.new(res_uri.path)
-      req.content_type = "application/x-www-form-urlencoded"
-      req.authorization = "Bearer #{LINE_ACCESS_TOKEN}"
-      req.set_form_data(:to => "#{@user.line_id}",
-                        :messages => (:type => "text",
-                                      :text => notification_form(notification))
-                        )
-      req_options = {
-        use_ssl: res_uri.scheme == "https"
+      message = {
+        type: 'text',
+        text: notification_form(notification)
       }
-      response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
-        http.request(req)
-      end
+
+      response = client.push_message(@user.line_id, message)
+      p response
     end
+
+    # case @notifications
+    # when @notifications.count += 1
+    #   notification == @notifications.last
+    #   res_uri = URI.parse("https://api.line.me/v2/bot/message/push")
+    #   req = Net::HTTP::Post.new(res_uri.path)
+    #   req.content_type = "application/x-www-form-urlencoded"
+    #   req.authorization = "Bearer #{LINE_ACCESS_TOKEN}"
+    #   req.set_form_data(:to => "#{@user.line_id}",
+    #                     :messages => (:type => "text",
+    #                                   :text => notification_form(notification))
+    #                     )
+    #   req_options = {
+    #     use_ssl: res_uri.scheme == "https"
+    #   }
+    #   response = Net::HTTP.start(res_uri.hostname, res_uri.port, req_options) do |http|
+    #     http.request(req)
+    #   end
+    # end
 
     head :ok
   end
