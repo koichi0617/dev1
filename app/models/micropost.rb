@@ -15,7 +15,7 @@ class Micropost < ApplicationRecord
     likes.where(user_id: user.id).exists?
   end
 
-  #いいねとコメント時の通知メソッド
+  #いいね時の通知メソッド
   def create_notification_by(current_user)
     notification = current_user.active_notifications.new(
       micropost_id: id,
@@ -23,6 +23,7 @@ class Micropost < ApplicationRecord
       action: "like"
     )
     notification.save if notification.valid?
+    redirect_to '/notice'
   end
 
   def create_notification_comment!(current_user, comment_id)
@@ -43,11 +44,12 @@ class Micropost < ApplicationRecord
       visited_id: visited_id,
       action: 'comment'
     )
-    # 自分の投稿に対するコメントの場合は、通知済みとする
+    # 自分のコメントは通知済みとする
     if notification.visitor_id == notification.visited_id
       notification.checked = true
     end
     notification.save if notification.valid?
+    redirect_to '/notice'
   end
 
   private

@@ -46,21 +46,18 @@ class LinebotController < ApplicationController
       error 400 do 'Bad Request' end
     end
 
-    case @notifications
-    when @notifications.count += 1
-      notification == @notifications.last
-      debugger.error("====================")
-      debugger.error(@notification.action)
-      message = {
-        type: 'text',
-        text: notification_form(notification)
-      }
-      debugger.error("====================")
-      debugger.error(message['text'].first)
+    notification == @notifications.last
+    debugger.error("====================")
+    debugger.error(@notification.action)
+    message = {
+      type: 'text',
+      text: notification_form(notification)
+    }
+    debugger.error("====================")
+    debugger.error(message['text'].first)
 
-      response = client.push_message(@user.line_id, message)
-      p response
-    end
+    response = client.push_message(@user.line_id, message)
+    p response
 
     # case @notifications
     # when @notifications.count += 1
