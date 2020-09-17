@@ -60,6 +60,8 @@ class Micropost < ApplicationRecord
   end
 
   def notice
+    debugger.error('==========================================')
+    debugger.error('notice!notice!notice!notice!notice!notice!')
     @user = User.find(current_user.id)
     @notifications = current_user.passive_notifications
     debugger.error("====================")
