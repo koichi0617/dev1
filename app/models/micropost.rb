@@ -69,9 +69,9 @@ class Micropost < ApplicationRecord
     logger.error("====================")
     logger.error(@notifications.count)
 
-    notification == @notifications.last
+    notification = @notifications.last
     logger.error("====================")
-    logger.error(@notification.action)
+    logger.error(notification.action)
     message = {
       type: 'text',
       text: notification_form(notification)
