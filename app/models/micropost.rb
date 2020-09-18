@@ -25,7 +25,7 @@ class Micropost < ApplicationRecord
       action: "like"
     )
     notification.save if notification.valid?
-    notice
+    notice(visited_id)
   end
 
   def create_notification_comment!(current_user, comment_id)
@@ -36,7 +36,6 @@ class Micropost < ApplicationRecord
     end
     # まだ誰もコメントしていない場合は、投稿者に通知を送る
     save_notification_comment!(current_user, comment_id, user_id) if temp_ids.blank?
-    notice
   end
 
   def save_notification_comment!(current_user, comment_id, visited_id)
@@ -52,6 +51,7 @@ class Micropost < ApplicationRecord
       notification.checked = true
     end
     notification.save if notification.valid?
+    notice(visited_id)
   end
 
   def client
@@ -61,10 +61,10 @@ class Micropost < ApplicationRecord
     }
   end
 
-  def notice
+  def notice(visited_id)
     logger.error('===========================================')
     logger.error('notice!notice!notice!notice!notice!notice!')
-    @user = User.find(current_user.id)
+    @user = User.find(params[:visited_id])
     @notifications = current_user.passive_notifications
     logger.error("====================")
     logger.error(@notifications.count)
