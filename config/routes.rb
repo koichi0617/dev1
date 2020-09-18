@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post '/notice', to: 'linebot#notice'
   get '/users/callback', to: 'users#callback'
   get '/auth/line/redirect_url', to: 'users#line'
+  get '/auth/line/cancel', to: 'users#line_cancel'
   
 
   resources :users

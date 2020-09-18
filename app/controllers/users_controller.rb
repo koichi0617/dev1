@@ -113,6 +113,11 @@ class UsersController < ApplicationController
     redirect_to line_url
   end
 
+  def line_cancel
+    @user = User.find(current_user.id)
+    @user.update(line_id: nil)
+  end
+
   private
   
     def user_params

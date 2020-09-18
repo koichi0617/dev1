@@ -62,16 +62,10 @@ class Micropost < ApplicationRecord
   end
 
   def notice(visited_id)
-    logger.error('===========================================')
-    logger.error(visited_id)
     @user = User.find_by(id: visited_id)
     @notifications = @user.passive_notifications
-    logger.error("====================")
-    logger.error(@notifications.count)
 
     notification = @notifications.last
-    logger.error("====================")
-    logger.error(notification.action)
     case notification.action
     when "like" then
       message = {
@@ -84,8 +78,6 @@ class Micropost < ApplicationRecord
         text: "#{notification.visitor.name}があなたの投稿にコメントしました"
       }
     end
-    logger.error("====================")
-    logger.error(@user.line_id)
 
     response = client.push_message(@user.line_id, message)
     p response
