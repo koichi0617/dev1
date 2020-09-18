@@ -25,7 +25,7 @@ class Micropost < ApplicationRecord
       action: "like"
     )
     notification.save if notification.valid?
-    notice(visited_id)
+    notice(user_id)
   end
 
   def create_notification_comment!(current_user, comment_id)
