@@ -68,10 +68,6 @@ class Micropost < ApplicationRecord
     @notifications = @user.passive_notifications
     logger.error("====================")
     logger.error(@notifications.count)
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
-    unless client.validate_signature(body, signature)
-      error 400 do 'Bad Request' end
-    end
 
     notification == @notifications.last
     logger.error("====================")
