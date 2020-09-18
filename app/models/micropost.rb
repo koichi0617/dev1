@@ -11,7 +11,7 @@ class Micropost < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 500 }
   validate  :picture_size
-  after_commit :notice, only: [:create_notification_by, :create_notification_comment!]
+  #after_commit :notice, only: [:create_notification_by, :create_notification_comment!]
 
   def liked_by?(user)
     likes.where(user_id: user.id).exists?
@@ -25,6 +25,7 @@ class Micropost < ApplicationRecord
       action: "like"
     )
     notification.save if notification.valid?
+    notice
   end
 
   def create_notification_comment!(current_user, comment_id)
@@ -35,6 +36,7 @@ class Micropost < ApplicationRecord
     end
     # まだ誰もコメントしていない場合は、投稿者に通知を送る
     save_notification_comment!(current_user, comment_id, user_id) if temp_ids.blank?
+    notice
   end
 
   def save_notification_comment!(current_user, comment_id, visited_id)
@@ -60,7 +62,7 @@ class Micropost < ApplicationRecord
   end
 
   def notice
-    debugger.error('==========================================')
+    debugger.error('===========================================')
     debugger.error('notice!notice!notice!notice!notice!notice!')
     @user = User.find(current_user.id)
     @notifications = current_user.passive_notifications
