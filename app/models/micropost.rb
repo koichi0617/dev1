@@ -76,12 +76,12 @@ class Micropost < ApplicationRecord
     when "like" then
       message = {
         type: 'text',
-        text: notification.visitor.name+"があなたの投稿にいいねしました"
+        text: "#{notification.visitor.name}があなたの投稿にいいねしました"
       }
     when "comment" then
       message = {
         type: 'text',
-        text: notification.visitor.name+"があなたの投稿にコメントしました"
+        text: "#{notification.visitor.name}があなたの投稿にコメントしました"
       }
     end
     logger.error("====================")
