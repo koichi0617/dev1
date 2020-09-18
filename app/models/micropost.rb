@@ -64,7 +64,7 @@ class Micropost < ApplicationRecord
   def notice(visited_id)
     logger.error('===========================================')
     logger.error(visited_id)
-    @user = User.find_by(id: params[:visited_id])
+    @user = User.find_by(id: visited_id)
     @notifications = current_user.passive_notifications
     logger.error("====================")
     logger.error(@notifications.count)
