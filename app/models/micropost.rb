@@ -65,7 +65,7 @@ class Micropost < ApplicationRecord
     logger.error('===========================================')
     logger.error(visited_id)
     @user = User.find_by(id: visited_id)
-    @notifications = current_user.passive_notifications
+    @notifications = @user.passive_notifications
     logger.error("====================")
     logger.error(@notifications.count)
     signature = request.env['HTTP_X_LINE_SIGNATURE']
