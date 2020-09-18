@@ -62,26 +62,26 @@ class Micropost < ApplicationRecord
   end
 
   def notice
-    debugger.error('===========================================')
-    debugger.error('notice!notice!notice!notice!notice!notice!')
+    logger.error('===========================================')
+    logger.error('notice!notice!notice!notice!notice!notice!')
     @user = User.find(current_user.id)
     @notifications = current_user.passive_notifications
-    debugger.error("====================")
-    debugger.error(@notifications.count)
+    logger.error("====================")
+    logger.error(@notifications.count)
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
 
     notification == @notifications.last
-    debugger.error("====================")
-    debugger.error(@notification.action)
+    logger.error("====================")
+    logger.error(@notification.action)
     message = {
       type: 'text',
       text: notification_form(notification)
     }
-    debugger.error("====================")
-    debugger.error(message['text'].first)
+    logger.error("====================")
+    logger.error(message['text'].first)
 
     response = client.push_message(@user.line_id, message)
     p response
