@@ -85,7 +85,7 @@ class Micropost < ApplicationRecord
       }
     end
     logger.error("====================")
-    logger.error(message['text'].first)
+    logger.error(@user.line_id)
 
     response = client.push_message(@user.line_id, message)
     p response
