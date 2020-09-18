@@ -72,16 +72,18 @@ class Micropost < ApplicationRecord
     notification = @notifications.last
     logger.error("====================")
     logger.error(notification.action)
-    message = {
-      case notification.action
-      when "like" then
+    case notification.action
+    when "like" then
+      message = {
         type: 'text',
         text: notification.visitor.name+"があなたの投稿にいいねしました"
-      when "comment" then
+      }
+    when "comment" then
+      message = {
         type: 'text',
         text: notification.visitor.name+"があなたの投稿にコメントしました"
-      end
-    }
+      }
+    end
     logger.error("====================")
     logger.error(message['text'].first)
 
