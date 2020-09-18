@@ -73,8 +73,14 @@ class Micropost < ApplicationRecord
     logger.error("====================")
     logger.error(notification.action)
     message = {
-      type: 'text',
-      text: notification_form(notification)
+      case notification.action
+      when "like" then
+        type: 'text',
+        text: notification.visitor.name+"があなたの投稿にいいねしました"
+      when "comment" then
+        type: 'text',
+        text: notification.visitor.name+"があなたの投稿にコメントしました"
+      end
     }
     logger.error("====================")
     logger.error(message['text'].first)
