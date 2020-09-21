@@ -1,48 +1,68 @@
-<% provide(:title, "About") %>
+<% provide(:title, "質問詳細") %>
 
 <div id="comment-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
-<h3>詳細</h3>
-
 <div class="question">
-  <div>
-    <% if @micropost.solve == true %>
-      解決済み
-    <% else %>
-      未解決
-    <% end %>
+  <h3>詳細</h3>
+  <div class="top">
+    <div>
+      <% if @micropost.solve == true %>
+        解決済み
+      <% else %>
+        未解決
+      <% end %>
+    </div>
+    <div clas="q-info">
+      <%= link_to gravatar_for(@micropost.user, size: 25), @micropost.user %>
+      <%= link_to @micropost.user.name, @micropost.user %>&emsp;/&emsp;<%= @micropost.user.major.name %>&emsp;/&emsp;
+      <%= @micropost.subject %>
+      <div class="right">
+        <span>
+          Posted <%= time_ago_in_words(@micropost.created_at) %> ago.&emsp;
+        </span>
+        <span>
+          <%= link_to("削除", micropost_path(@micropost.id), data: { confirm: "削除しますか？" }, method: :delete) %>&emsp;
+        </span>
+      </div>
+    </div>
   </div>
-  <div clas="q-info">
-    <%= link_to gravatar_for(@micropost.user, size: 25), @micropost.user %>
-    <%= link_to @micropost.user.name, @micropost.user %>&emsp;/&emsp;<%= @micropost.user.major.name %>&emsp;/&emsp;
-    <%= @micropost.subject %>
-  <div class="q-content">
-    <%= @micropost.content %>
+  <div class="middle">
+    <div class="q-content">
+      <%= @micropost.content %>
+    </div>
+    <div class="q-pic">
+      <span class="pic-file">
+        <%= link_to @micropost.picture1.url, 'data-lightbox':@micropost.picture1 do %>
+          <%= image_tag @micropost.picture1.url if @micropost.picture1? %>
+        <% end %>
+      </span>
+      <span class="pic-file">
+        <%= link_to @micropost.picture2.url, 'data-lightbox':@micropost.picture1 do %>
+          <%= image_tag @micropost.picture2.url if @micropost.picture2? %>
+        <% end %>
+      </span>
+      <span class="pic-file">
+        <%= link_to @micropost.picture3.url, 'data-lightbox':@micropost.picture1 do %>
+          <%= image_tag @micropost.picture3.url if @micropost.picture3? %>
+        <% end %>
+      </span>
+    </div>
   </div>
-  <div class ="q-pic">
-    <%= image_tag @micropost.picture.url if @micropost.picture? %>
-  </div>
-  <div>
-    Posted <%= time_ago_in_words(@micropost.created_at) %> ago.&emsp;
-  </div>
-  <div>
-    <%= link_to("削除", micropost_path(@micropost.id), data: { confirm: "削除しますか？" }, method: :delete) %>&emsp;
-  </div>
+
+  <% if current_user == @micropost.user %>
+    <div class='solve_button'>
+      <% if @micropost.solve == true %>
+        <%= link_to 'やっぱりわかんない', solve_path(@micropost), method: :post, class: "btn btn-lg, btn-info" %>
+      <% else %>
+        <%= link_to '解決', solve_path(@micropost), method: :post, class: "btn btn-lg, btn-info" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if logged_in? %>
+    <%= link_to '回答する', new_micropost_comment_path(@micropost.id), remote: true, class: "btn btn-lg, btn-primary" %>
+  <% end %>
 </div>
-
-<% if current_user == @micropost.user %>
-  <div class='solve_button'>
-    <% if @micropost.solve == true %>
-      <%= button_to 'やっぱりわかんない', solve_path(@micropost), method: :post %>
-    <% else %>
-      <%= button_to '解決！', solve_path(@micropost), method: :post %>
-    <% end %>
-  </div>
-<% end %>
-
-<% if logged_in? %>
-  <%= link_to '回答する', new_micropost_comment_path(@micropost.id), remote: true, class: "btn btn-lg, btn-primary" %>
-<% end %>
 
 <hr>
 <h4 class="text-left title">回答&nbsp;<%= @comments.count %>件</h4>

@@ -22,7 +22,13 @@
             <%= f.text_area :content, placeholder: "質問内容", rows: 10 %>
           </div>
           <span class="picture">
-            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+            <%= f.file_field :picture1, accept: 'image/jpeg,image/gif,image/png' %>
+          </span>
+          <span class="picture">
+            <%= f.file_field :picture2, accept: 'image/jpeg,image/gif,image/png' %>
+          </span>
+          <span class="picture">
+            <%= f.file_field :picture3, accept: 'image/jpeg,image/gif,image/png' %>
           </span>
         </div>
       </div>

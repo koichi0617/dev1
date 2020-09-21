@@ -7,7 +7,9 @@ class Micropost < ApplicationRecord
   has_many :likes, dependent: :destroy, inverse_of: :micropost
   has_many :notifications, dependent: :destroy
   default_scope -> { order(created_at: :desc) } #作成日時から降順に並べる
-  mount_uploader :picture, PictureUploader
+  mount_uploader :picture1, PictureUploader
+  mount_uploader :picture2, PictureUploader
+  mount_uploader :picture3, PictureUploader
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 500 }
   validate  :picture_size
@@ -86,8 +88,12 @@ class Micropost < ApplicationRecord
 
     # アップロードされた画像のサイズをバリデーションする
     def picture_size
-      if picture.size > 5.megabytes
-        errors.add(:picture, "容量は5MBまでです")
+      if picture1.size > 5.megabytes
+        errors.add(:picture1, "容量は5MBまでです")
+      elsif picture2.size > 5.megabytes
+        errors.add(:picture2, "容量は5MBまでです")
+      elsif picture3.size > 5.megabytes
+        errors.add(:picture3, "容量は5MBまでです")
       end
     end
 end

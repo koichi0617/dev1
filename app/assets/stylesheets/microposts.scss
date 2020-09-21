@@ -93,6 +93,35 @@ span.picture {
   flex-direction: row;
 }
 
+/* show-micropost */
+
+.question{
+  margin: 10px;
+  .top{
+
+  }
+  .middle{
+    padding: 10px 10px 10px 50px;
+    .q-content{
+      margin-bottom: 10px;
+    }
+    .q-pic{
+      // display: flex;
+      // flex-direction: row;
+      // flex-wrap: wrap;
+      margin-bottom: 10px;
+      .pic-file{
+        width: 150px;
+        height: 150px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        // 画像の縦横比率を変えずに表示
+        object-fit: contain;
+      }
+    }
+  }
+}
+
 /* narrow down */
 
 .posts__searchForm {
