@@ -6,7 +6,7 @@
 
     <div class="narrow-down">
       <%= form_tag(microposts_path, method: :get, class: 'posts__searchForm') do %>
-        <div class="narrow-down-major">
+        <div class="narrow-down-select">
           <%= label :major_id, "学科" %>
           <%= select_tag :major_id, #コントローラーに渡す値
                           options_from_collection_for_select(Major.all, :id, :name, params[:major_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
@@ -15,7 +15,7 @@
           %>
         </div>
 
-        <div class="narrow-down-solve">
+        <div class="narrow-down-select">
           <%= label :major_id, "解決" %>
           <%= select_tag :resolve_id, #コントローラーに渡す値
                           options_from_collection_for_select(Resolve.all, :id, :name, params[:resolve_id]), #（セレクトする配列、渡す値のカラム、表示する値のカラム）
@@ -24,7 +24,7 @@
           %>
         </div>
 
-        <div class="narrow-down-subject">
+        <div class="narrow-down-text">
           <%= label :keyword, "科目・ジャンル" %>
           <%= text_field_tag :keyword %>
           <%= submit_tag '検索', :name => nil %>

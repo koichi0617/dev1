@@ -1,3 +1,52 @@
-// Place all the styles related to the StaticPages controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container-fluid {
+  background-image: url(https://unsplash.it/2560/1707?image=961);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (min-width: 768px){
+  .container {
+    width: 750px;
+  }
+}
+
+.jumbotron{
+  background: none;
+  text-align: center;
+  h1{
+    color: black;
+    font-size: 72px;
+    margin-top: 22px;
+    margin-bottom: 1.1em;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  p{
+    font-size: 24px;
+    font-weight: 200;
+    color: #FFFFFF;
+    margin-bottom: 5%;
+  }
+}
+
+@media screen and (min-width: 768px){
+  .container .jumbotron, .container-fluid .jumbotron {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+.features{
+  padding-top: 3.3em;
+  padding-bottom: 4.2em;
+  h4{
+    margin-top: 11px;
+  }
+  p{
+    margin-bottom: 20px;
+  }
+}

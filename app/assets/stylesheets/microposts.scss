@@ -74,13 +74,6 @@
   }
 }
 
-aside {
-  textarea {
-    height: 100px;
-    margin-bottom: 5px;
-  }
-}
-
 span.picture {
   margin-top: 10px;
   input {
@@ -91,20 +84,22 @@ span.picture {
 .index-top{
   display: inline-flex;
   flex-direction: row;
+  width: 100%;
 }
 
 /* narrow down */
 
-.posts__searchForm {
-  display: inline-block;
-}
+// .posts__searchForm {
+//   display: inline-block;
+// }
 
-.narrow-down-solve{
+.narrow-down{
   display: inline-flex;
-  flex-direction:column;
-  .solve-narrow{
-    display: inline-flex;
-    flex-direction: row;
+  flex-direction: row;
+  .narrow-down-select{
+  }
+  .narrow-down-text{
+
   }
 }
   

@@ -19,15 +19,17 @@ $gray-medium-light: #eaeaea;
 }
 
 body{
-  padding-top: 55px;
   background-image: image-url('seamless_paper_texture.png')
 }
 
 .header{
-  // height: 45px;
   .navbar{
     height: 100%;
   }
+}
+
+.wrap{
+  padding-top: 55px;
 }
 
 .container{
@@ -52,6 +54,8 @@ textarea{
 
 h1,h2,h3,h4,h5,h6{
   line-height: 1;
+  margin-bottom: 1.1em;
+  // font-family: 'Roboto Slab', serif;
 }
 
 h1{
@@ -104,25 +108,17 @@ p {
 /* footer */
 
 footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
-  a {
-    color: #555;
-    &:hover {
-      color: #222;
-    }
+  background-color: rgb(47, 49, 51);
+  padding-top: 2em;
+  padding-bottom: 1.2em;
+  color: white;
+  h3{
   }
-  small {
-    float: left;
-  }
-  ul {
-    float: right;
-    list-style: none;
-    li {
-      float: left;
-      margin-left: 15px;
+  p{
+    a{
+      color: #2faaab;
+      cursor: pointer;
+      margin-left: 20px;
     }
   }
 }

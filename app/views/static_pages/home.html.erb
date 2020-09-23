@@ -1,11 +1,45 @@
-<div class="center jumbotron">
-  <h1>welcome</h1>
-    
-  <h2>
-    aaa
-  </h2>
+<div class="container-fluid">
+  <%= render 'layouts/header' %>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>
+        <small>welcome</small>
+        <br>
+        <strong>Hello!</strong>
+      </h1>
+      <p>
+        This is a simple hero unit, a simple jumbotron-style component for
+        <br>
+        calling extra attention to featured content or information.
+      </p>
+      <p>
+        <%= link_to 'Sign up now.', signup_path, class: "btn btn-lg btn-primary" %>
+      </p>
+    </div>
+  </div>
   
-  <%= link_to 'Sign up now.', signup_path, class: "btn btn-lg btn-primary" %>
 </div>
 
-<%= link_to image_tag("rails.png", alt: "Rails logo"), 'http://rubyonrails.org' %>
+<section id="about">
+  <div class="container">
+    <div class="row features">
+      <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="100ms" style="visibility: visible; animation-delay: 100ms; animation-name: fadeInUp;">
+        <span><i class="fas fa-comments fa-4x"></i></span>
+        <h4>Consectetur Risus</h4>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+      </div>
+      <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="300ms" style="visibility: visible; animation-delay: 100ms; animation-name: fadeInUp;">
+        <span><i class="fas fa-comments fa-4x"></i></span>
+        <h4>Consectetur Risus</h4>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+      </div>
+      <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="500ms" style="visibility: visible; animation-delay: 100ms; animation-name: fadeInUp;">
+        <span><i class="fas fa-comments fa-4x"></i></span>
+        <h4>Consectetur Risus</h4>
+        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section></section>
