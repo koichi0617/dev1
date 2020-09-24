@@ -11,6 +11,17 @@
               <div class="comment-entry">
                 <%= comment.content %>
               </div>
+              <div class="comment-pic">
+                <span class="pic-file">
+                  <%= image_tag @comment.picture1.url if @comment.picture1? %>
+                </span>
+                <span class="pic-file">
+                  <%= image_tag @comment.picture2.url if @comment.picture2? %>
+                </span>
+                <span class="pic-file">
+                  <%= image_tag @comment.picture3.url if @comment.picture3? %>
+                </span>
+              </div>
               <span class="comment-date pull-right">
                 <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %>&nbsp;
                 <% if comment.user == current_user %>
