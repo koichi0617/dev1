@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def index
     @users = params[:major_id].present? ? User.where(major_id: params[:major_id]) : User.all
     @users = params[:keyword].present? ? @users.where("name LIKE ?", "%#{params[:keyword]}%") : @users
-    @users = @users.paginate(page: params[:page])
+    @users = @users.paginate(page: params[:page], per_page: 15)
   end
 
   def show

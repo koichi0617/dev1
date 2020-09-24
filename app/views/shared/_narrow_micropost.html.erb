@@ -1,0 +1,31 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content"> 
+    <%= form_with url: microposts_path, method: :get, local: true do |f| %>
+
+      <div class="modal-header">
+        <h3 class="modal-title">しぼりこみ</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group field">
+          <%= f.label :major_id, "学部・学科" %>
+          <%= f.collection_select :major_id, Major.all, :id, :name, {prompt: '選択してください'} %>
+          
+          <%= f.label :major_id, "解決" %>
+          <%= f.collection_select :resolve_id, Resolve.all, :id, :name, {prompt: '全部'} %>
+
+          <%= f.label :keyword, "科目・ジャンル" %>
+          <%= f.text_area :keyword %>
+        </div>
+      </div>
+
+      <div class="modal-footer actions">
+        <%= f.submit '検索', :name => nil %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

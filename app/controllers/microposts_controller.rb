@@ -6,7 +6,7 @@ class MicropostsController < ApplicationController
     @feed_items = params[:major_id].present? ? Micropost.where(major_id: params[:major_id]) : Micropost.all
     @feed_items = params[:resolve_id].present? ? @feed_items.where(resolve: params[:resolve_id]) : @feed_items
     @feed_items = params[:keyword].present? ? @feed_items.where("subject LIKE ?", "%#{params[:keyword]}%") : @feed_items
-    @feed_items = @feed_items.page(params[:page])
+    @feed_items = @feed_items.paginate(page: params[:page], per_page: 15)
   end
 
   def new
