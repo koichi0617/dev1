@@ -1,0 +1,37 @@
+<header class="header fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <%= link_to "アゴラ", root_path, id: "logo", class: "logo text-left" %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" data="{turbolinks => false}">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav navbar-right ml-auto text-right">
+          <li class="nav-item active"><%= link_to "ホーム", root_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '質問一覧', microposts_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to '掲示板', boards_path, class: "nav-link" %></li>
+          <% if logged_in? %>
+            <% if unchecked_notifications.any? %>
+              <i class="fa fa-circle" style="color: gold;"></i>
+            <% end %>
+            <li class="nav-item"><%= link_to "ユーザー", users_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "トーク", rooms_path, class: "nav-link" %></li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="btnOpenMenu">
+                アカウント <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="btnOpenMenu">
+                <li class="dropdown-item"><%= link_to 'プロフィール', current_user %></li>
+                <li class="dropdown-item"><%= link_to '設定', edit_user_path(current_user) %></li>
+                <li class="dropdown-item"><%= link_to 'ログアウト', logout_path, method: :delete %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li class="nav-item"><%= link_to 'ログイン', login_path, class: "nav-link" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

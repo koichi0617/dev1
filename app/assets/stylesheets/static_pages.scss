@@ -1,18 +1,36 @@
 
 .container-fluid {
-  background-image: url(https://unsplash.it/2560/1707?image=961);
+  background-image: image-url('5551.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
   padding-left: 15px;
   padding-right: 15px;
+  position: relative;
+}
+
+.container-fluid::before{
+  background-color: rgba(0,0,0,0.4);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: ' ';
 }
 
 .jumbotron{
+  position: absolute;
   background: none;
+  width: 100%;
   text-align: center;
+  top:50%;
+  left:50%;
+  transform:translateY(-50%)translateX(-50%);
+  transform:translateY(-50%)translateX(-50%);
+  margin:auto;
   h1{
-    color: black;
+    color: white;
     font-size: 72px;
     margin-top: 22px;
     margin-bottom: 1.1em;
@@ -27,8 +45,12 @@
   }
 }
 
-.features{
+.title{
   padding-top: 3.3em;
+}
+
+.features{
+  padding-top: 1em;
   padding-bottom: 4.2em;
   h4{
     margin-top: 11px;

@@ -1,19 +1,18 @@
 <div class="container-fluid">
-  <%= render 'layouts/header' %>
   <div class="container">
     <div class="jumbotron">
       <h1>
-        <small>welcome</small>
+        <small>Welcome to</small>
         <br>
-        <strong>Hello!</strong>
+        <strong>アゴラ</strong>
       </h1>
       <p>
-        This is a simple hero unit, a simple jumbotron-style component for
+        このサイトは、熊本の学生の学びをサポートする学習プラットフォームです
         <br>
-        calling extra attention to featured content or information.
+        様々な人との交流から、新たな学びを見つけてみませんか？
       </p>
       <p>
-        <%= link_to 'Sign up now.', signup_path, class: "btn btn-lg btn-primary" %>
+        <%= link_to '登録する', signup_path, class: "btn btn-lg btn-info" %>
       </p>
     </div>
   </div>
@@ -22,21 +21,24 @@
 
 <section id="about">
   <div class="container">
+    <div class="title text-center">
+      <h1>How to use</h1>
+    </div>
     <div class="row features">
       <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="100ms" style="visibility: visible; animation-delay: 100ms; animation-name: fadeInUp;">
         <span><i class="fas fa-comments fa-4x"></i></span>
-        <h4>Consectetur Risus</h4>
-        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        <h4><strong>質問する</strong></h4>
+        <p>勉強や大学生活でわからないこと、誰かに相談したいことがあったら、ここで質問してみてください。<br>誰かが答えてくれるかもしれません。</p>
       </div>
       <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="300ms" style="visibility: visible; animation-delay: 100ms; animation-name: fadeInUp;">
         <span><i class="fas fa-comments fa-4x"></i></span>
-        <h4>Consectetur Risus</h4>
-        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        <h4><strong>回答する</strong></h4>
+        <p>自分が答えられそうな質問を見つけたら、ぜひ回答してみてください。<br>あなたの知識や経験が誰かの役に立ちます。</p>
       </div>
       <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="500ms" style="visibility: visible; animation-delay: 100ms; animation-name: fadeInUp;">
         <span><i class="fas fa-comments fa-4x"></i></span>
-        <h4>Consectetur Risus</h4>
-        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+        <h4><strong>発信する</strong></h4>
+        <p>日々の学びを発信してみてください。<br>発信することは、学んだ内容の定着につながります。また、投稿を見た人の役に立つかもしれません。</p>
       </div>
     </div>
   </div>

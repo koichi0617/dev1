@@ -1,14 +1,15 @@
 <ol class="microposts">
   <% feed_items.each do |micropost| %>
-    <li id="micropost-<%= micropost.id %>">
+    <li id="micropost-<%= micropost.id %>" class="card">
 
       <div class="category">
+        &nbsp;
         <% if micropost.solve == true %>
           <i class="fas fa-check"></i>
         <% else %>
           未
         <% end %>
-        &emsp;/&emsp;<%= micropost.subject %>&emsp;/&emsp;<%= micropost.major.name %>
+        &nbsp;/&nbsp;<%= micropost.subject %>
       </div>
 
       <div class="who">
@@ -17,8 +18,8 @@
       </div>
 
       <div class="content">
-        <div class="q-text"><%= micropost.content %></div>
-        <div class="q-pic"><%= image_tag micropost.picture1.url if micropost.picture1? %></div>
+        <div class="q-title"><%#= micropost.title %></div>
+        <div class="q-text"><%= link_to micropost, class:"q-link" do %><%= micropost.content %><% end %></div>
       </div>
 
       <div class="timestamp">
