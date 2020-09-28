@@ -14,12 +14,12 @@
 
       <div class="who">
         <%= link_to gravatar_for(micropost.user, size: 25), micropost.user %>
-        <span class="user"><%= link_to micropost.user.name, micropost.user %>&emsp;/&emsp;<%= micropost.user.major.name %></span>
+        <span class="user"><%= link_to micropost.user.name, micropost.user, class:"black-link" %>&emsp;/&emsp;<%= micropost.user.major.name %></span>
       </div>
 
       <div class="content">
-        <div class="q-title"><%#= micropost.title %></div>
-        <div class="q-text"><%= link_to micropost, class:"q-link" do %><%= micropost.content %><% end %></div>
+        <div class="q-title"><%= link_to micropost, class:"black-link" do %><%= micropost.title %><% end %></div>
+        <div class="q-text"><%= micropost.content %></div>
       </div>
 
       <div class="timestamp">
@@ -27,7 +27,7 @@
           <%= render partial: 'likes/like', locals: {micropost: micropost } %>
         </div>
         <div><%= link_to micropost do %><i class="far fa-comment"></i>&nbsp;<%= micropost.comments.count %><% end %>&emsp;</div>
-        <div>Posted <%= time_ago_in_words(micropost.created_at) %> ago.&emsp;</div>
+        <div><%= time_ago_in_words(micropost.created_at) %> &emsp;</div>
         <% if current_user?(micropost.user) %>
           <div>
             <%= link_to micropost_path(micropost.id), method: :delete, title: '投稿削除',
@@ -35,7 +35,7 @@
                                 commit: '削除',
                                 cancel: 'キャンセル' 
                               }  do %>
-              <i class="fas fa-trash" style="color: black;"></i>
+              <i class="fas fa-trash" style="color: gray;"></i>
             <% end %>&emsp;
           </div>
         <% end %>

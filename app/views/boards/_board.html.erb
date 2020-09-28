@@ -3,17 +3,17 @@
     <li id="board-<%= board.id %>">
 
       <div class="category">
-        <%= board.name %>
+        <%= board.subject %>
       </div>
 
       <div class="who">
         <%= link_to gravatar_for(board.user, size: 25), board.user %>
-        <span class="user"><%= link_to board.user.name, board.user %>&emsp;/&emsp;<%= board.user.major.name %></span>
+        <span class="user"><%= link_to board.user.name, board.user, class:"black-link" %>&emsp;/&emsp;<%= board.user.major.name %></span>
       </div>
 
       <div class="content">
+        <div class="q-title"><%= link_to board, class:"black-link" do %><%= board.name %><% end %></div>
         <div class="q-text"><%= board.content %></div>
-        <div class="q-pic"><%= image_tag board.picture.url if board.picture? %></div>
       </div>
 
       <div class="timestamp">

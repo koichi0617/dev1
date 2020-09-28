@@ -48,8 +48,10 @@ end
 
 users = User.order(:created_at).take(6)
 5.times do
-  content = Faker::Lorem.sentence(word_count: 5)
-  users.each { |user| user.microposts.create!(content: content, major_id: 2, subject: content) }
+  subject = Faker::Lorem.sentence(word_count: 2)
+  title = Faker::Lorem.sentence(word_count: 5)
+  content = Faker::Lorem.sentence(word_count: 20)
+  users.each { |user| user.microposts.create!(title: title, content: content, major_id: 2, subject: subject) }
 end
 
 Board.create!(:name => 'メンバー募集！', :content => 'みんなおいで！', :user_id => 1)
